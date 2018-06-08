@@ -11,12 +11,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Needed to connect to database
         FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //FireBaseDatabase can be made private and final
         FirebaseDatabase db=FirebaseDatabase.getInstance();
+        //"Test" string is the path inside the database
         DatabaseReference ref=db.getReference("Test");
         //set the first name in the database
-        ref.setValue("Test worked");
+        ref.setValue("Test works");
     }
 }
