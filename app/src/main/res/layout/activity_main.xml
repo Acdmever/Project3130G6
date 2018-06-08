@@ -6,13 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="118dp"
+        android:layout_height="76dp"
+        android:text="Courses"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="161dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="University of Maximegalon Course Registration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="118dp"
+        android:layout_height="76dp"
+        android:text="Register"
+        tools:layout_editor_absoluteX="219dp"
+        tools:layout_editor_absoluteY="161dp" />
 
 </android.support.constraint.ConstraintLayout>
