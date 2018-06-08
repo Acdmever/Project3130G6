@@ -8,18 +8,20 @@ import static org.junit.Assert.assertTrue;
 
 public class ViewCourseDetailUnitTest {
 
+    private static ViewCourseDetail vcd;
     @Before
     public void setup() {
         //Initializing course details object
+        vcd = new ViewCourseDetail();
     }
 
     @Test
     public void showCourseDetails () {
-        assertTrue(true);
+        assertTrue(vcd.showCourseDetail(0));
     }
 
     @Test
     public void showCourseDetailError () {
-        assertTrue(true);
+        assertTrue(vcd.showCourseDetail(0));
     }
 }
