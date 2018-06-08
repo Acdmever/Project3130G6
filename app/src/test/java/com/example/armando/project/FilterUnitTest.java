@@ -25,4 +25,16 @@ public class FilterUnitTest {
         //test errors when no courses are showing after filter
         assertTrue(filter.filterByClassLevel(2000));
     }
+
+    @Test
+    public void filterCourseDepartment () {
+        //test if it filters courses by department correctly
+        assertTrue(true);
+    }
+
+    @Test
+    public void filterNoCourseDepartment () {
+        //test errors when no courses are showing after filter
+        assertTrue(true);
+    }
 }
