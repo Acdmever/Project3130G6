@@ -29,12 +29,12 @@ public class FilterUnitTest {
     @Test
     public void filterCourseDepartment () {
         //test if it filters courses by department correctly
-        assertTrue(true);
+        assertTrue(filter.filterByDepartment("Sociology"));
     }
 
     @Test
     public void filterNoCourseDepartment () {
         //test errors when no courses are showing after filter
-        assertTrue(true);
+        assertTrue(filter.filterByDepartment("Spanish"));
     }
 }
