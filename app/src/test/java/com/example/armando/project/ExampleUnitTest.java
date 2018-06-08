@@ -1,5 +1,7 @@
 package com.example.armando.project;
 
+import com.google.firebase.FirebaseApp;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,16 +19,16 @@ public class ExampleUnitTest {
     public void makeStudent() {
         //Student student = new Student();
     }
-    @Test public void writeToDB() {
+   /* @Test public void writeToDB() {
         Student student = new Student();
         String test = student.writeMessage();
-    }
+    }*/
 
     @Test
     public void studentThings() {
         Student student = new Student();
-        String pass = new String();
-        pass = student.setFirstName("test complete");
-        assertNotNull(pass);
+        //boolean success;
+        student.setFirstName("test complete");
+        assertTrue(true);
     }
 }
