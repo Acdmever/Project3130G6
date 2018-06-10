@@ -55,7 +55,7 @@ public class Student {
     public Student() {
         //this.db = FirebaseDatabase.getInstance();
         //this.ref = db.getReference("Test");
-
+        //FirebaseApp.initializeApp()});
         System.out.println("Made a student");
         //create a new student in the database
     }
