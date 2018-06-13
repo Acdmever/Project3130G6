@@ -44,9 +44,11 @@ public class Student {
     //private FirebaseDatabase db=FirebaseDatabase.getInstance();
     //private DatabaseReference ref=db.getReference("Test");
 
-    private String firstName = new String();
-    private String lastName = new String();
+    private String firstName;
+    private String lastName;
     private int id;
+    private String password;
+    private String username;
     public  Student(int id) {
         //this.db = FirebaseDatabase.getInstance();
         // or find the student with the given id
