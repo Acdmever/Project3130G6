@@ -1,6 +1,15 @@
 package com.example.armando.project;
 
-public class ViewCourseDetail {
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class ViewCourseDetail extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_course_detail);
+    }
 
     public static boolean showCourseDetail(int courseId) {
         //When course name is clicked, details of course are fetched from the DB
