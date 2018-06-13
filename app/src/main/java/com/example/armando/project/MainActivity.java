@@ -2,6 +2,8 @@ package com.example.armando.project;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -15,11 +17,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //FireBaseDatabase can be made private and final
-        FirebaseDatabase db=FirebaseDatabase.getInstance();
-        //"Test" string is the path inside the database
-        DatabaseReference ref=db.getReference("Test");
-        //set the first name in the database
-        ref.setValue("Test works");
+        Database db=new Database();
+        Student s=db.getStudent("0");
+        TextView text=findViewById(R.id.textView);
+        text.setText(s.getUsername()+" "+s.getLastName());
     }
 }

@@ -17,7 +17,7 @@ public class ExampleUnitTest {
 
     @Before
     public void makeStudent() {
-        //Student student = new Student();
+        Student student = new Student();
     }
    /* @Test public void writeToDB() {
         Student student = new Student();
@@ -26,9 +26,9 @@ public class ExampleUnitTest {
 
     @Test
     public void studentThings() {
-        Student student = new Student();
+        //Student student = new Student();
         //boolean success;
-        student.setFirstName("test complete");
+        //student.setFirstName("test complete");
         assertTrue(true);
     }
 }

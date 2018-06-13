@@ -12,10 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 public class Database {
     private final FirebaseDatabase database=FirebaseDatabase.getInstance();
     private Student student=new Student();
-    public void Initialize(){
-        //FirebaseApp.initializeApp();
 
-    }
+
+
     public DatabaseReference startReference(String path){
         DatabaseReference ref=database.getReference(path);
 
@@ -23,12 +22,11 @@ public class Database {
         return ref;
     }
     public Student getStudent(String id){
-        Student sd=new Student();
-        DatabaseReference ref=startReference("Student/").child(id);
+        DatabaseReference ref=startReference("Students").child("id").child("username");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                student=dataSnapshot.getValue(Student.class);
+                student.username=dataSnapshot.getValue(String.class).toString();
 
             }
 
@@ -36,8 +34,12 @@ public class Database {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
-        //sd.setFirstName(ref.get);
-        return sd;
+
+
+        }
+
+        );
+        return this.student;
+
     }
 }

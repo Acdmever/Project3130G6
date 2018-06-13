@@ -40,40 +40,48 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Student {
-    //Firebase.setAndroidContext(this);
-    //private FirebaseDatabase db=FirebaseDatabase.getInstance();
-    //private DatabaseReference ref=db.getReference("Test");
 
     private String firstName;
     private String lastName;
-    private int id;
+    //private String ID;
     private String password;
-    private String username;
-    public  Student(int id) {
-        //this.db = FirebaseDatabase.getInstance();
-        // or find the student with the given id
+    public String username;
+
+
+    public void setFirstName(String fn) {
+        this.firstName=fn;
     }
-
-    public Student() {
-        //this.db = FirebaseDatabase.getInstance();
-        //this.ref = db.getReference("Test");
-        //FirebaseApp.initializeApp()});
-        System.out.println("Made a student");
-        //create a new student in the database
+    public void setLastName(String ln) {
+        this.lastName=ln;
     }
-
-    void setFirstName(String fn) {
-        FirebaseDatabase db=FirebaseDatabase.getInstance();
-        DatabaseReference ref=db.getReference("Test");
-        //set the first name in the database
-        ref.setValue(fn);
-
-
+    public void setPassword(String pw) {
+        this.password=pw;
     }
-
-    String getFirstName() {
-        return "";
+    public void setUsername(String un) {
+        this.username=un;
     }
+    /*public void setID(String id){
+        this.ID=id;
+    }*/
+    public String getFirstName() {
 
+        return this.firstName;
+    }
+    public String getLastName() {
+
+        return this.lastName;
+    }
+    public String getPassword() {
+
+        return this.password;
+    }
+    public String getUsername() {
+
+        return this.username;
+    }
+    /*public String getID() {
+        return this.ID;
+
+    }*/
 
 }
