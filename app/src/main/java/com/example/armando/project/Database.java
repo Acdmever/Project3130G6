@@ -11,8 +11,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Database {
     private final FirebaseDatabase database=FirebaseDatabase.getInstance();
-    private Student student=new Student();
-
+    //private final Student student=new Student();
+    private DatabaseReference ref=database.getReference("");
 
 
     public DatabaseReference startReference(String path){
@@ -22,11 +22,17 @@ public class Database {
         return ref;
     }
     public Student getStudent(String id){
-        DatabaseReference ref=startReference("Students").child("id").child("username");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        final Student student=new Student();
+        //ref=startReference("Student/0/username");
+        DatabaseReference ref=database.getReference("Student").child(id).child("username");
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                student.username=dataSnapshot.getValue(String.class).toString();
+                Object s=dataSnapshot.getValue();
+                student.setUsername(s.toString());
+                //student.setFirstName(s.getFirstName());
+                //student.setLastName(s.getLastName());
+                //student.setPassword(s.getPassword());
 
             }
 
@@ -39,7 +45,7 @@ public class Database {
         }
 
         );
-        return this.student;
+        return student;
 
     }
 }
