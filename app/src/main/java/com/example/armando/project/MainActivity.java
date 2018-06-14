@@ -1,7 +1,9 @@
 package com.example.armando.project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -22,4 +24,9 @@ public class MainActivity extends AppCompatActivity {
         //set the first name in the database
         ref.setValue("Test works");
     }
+
+    public void onClickShowCourses(View view) {
+
+    }
+
 }
