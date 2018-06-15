@@ -10,9 +10,10 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Database {
-    private final FirebaseDatabase database=FirebaseDatabase.getInstance();
+    //private final String FB_URL="https://project3130g6.firebaseio.com";
+    public final  FirebaseDatabase database=FirebaseDatabase.getInstance();
     //private final Student student=new Student();
-    private DatabaseReference ref=database.getReference("");
+    public DatabaseReference ref=database.getReference("");
 
 
     public DatabaseReference startReference(String path){
@@ -21,15 +22,18 @@ public class Database {
         //Check if path exists
         return ref;
     }
-    public Student getStudent(String id){
-        final Student student=new Student();
+    public void getStudent(final String id, final Student student){
+        //final Student student=new Student();
         //ref=startReference("Student/0/username");
-        DatabaseReference ref=database.getReference("Student").child(id).child("username");
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref=database.getReference("Student").child(id);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Object s=dataSnapshot.getValue();
-                student.setUsername(s.toString());
+
+                Student s=dataSnapshot.getValue(Student.class);
+                if (s!=null)
+                Student.transfer(s,student);
+                //student.setUsername(s.toString());
                 //student.setFirstName(s.getFirstName());
                 //student.setLastName(s.getLastName());
                 //student.setPassword(s.getPassword());
@@ -45,7 +49,7 @@ public class Database {
         }
 
         );
-        return student;
+        //return student;
 
     }
 }

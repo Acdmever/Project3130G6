@@ -1,5 +1,6 @@
 package com.example.armando.project;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,13 +25,34 @@ public class MainActivity extends AppCompatActivity {
         Student s=db.getStudent("0");
         TextView text=findViewById(R.id.textView);
         text.setText(s.getUsername()+" "+s.getLastName());*/
-        update();
+        final Database db=new Database();
+        final Student s=new Student();
+        final Handler handler=new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                db.getStudent("0",s);
+                TextView text=findViewById(R.id.textView);
+
+                text.setText(s.getFirstName()+" "+s.getLastName());
+                handler.postDelayed(this,500);
+            }
+        });
+        //update();
     }
     public void update(){
-        Database db=new Database();
-        Student s=db.getStudent("0");
-        TextView text=findViewById(R.id.textView);
+        final Database db=new Database();
+        final Student s=new Student();
+        Handler handler=new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                db.getStudent("0",s);
+                TextView text=findViewById(R.id.textView);
 
-        text.setText(s.getFirstName()+" "+s.getLastName());
+                text.setText(s.getFirstName()+" "+s.getLastName());
+            }
+        });
+
     }
 }
