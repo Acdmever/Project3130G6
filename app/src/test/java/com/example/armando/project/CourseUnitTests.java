@@ -11,7 +11,7 @@ public class CourseUnitTests {
     public void headerAndFooterTest(){
         Course course = new Course();
         course.setDepartment("Spanish");
-        course.setNum(3100);
+        course.setNum((long)3100);
         course.setName("Testing Stuff");
         course.setSemester("Fall");
         course.setYear("2013-2014");

@@ -35,7 +35,7 @@ public class EspressoTest {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(1))
                 .check(matches(hasDescendant(withText("Spanish"))));
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(1))
-                .check(matches(hasDescendant(withText("Fall"))));
+                .check(matches(hasDescendant(withText("fall"))));
 
         Intents.release();
     }

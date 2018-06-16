@@ -8,7 +8,7 @@ public class Course {
     public String name;
     public Lecture tutorials;
     public String year;
-    public Integer num;
+    public Long num;
     public String key;
 
     public String getKey() {
@@ -21,7 +21,7 @@ public class Course {
 
     public Course() { }
 
-    public Course(String department, String instructor, String semester, String name, String key, Integer num, String year, Lecture lectures, Lecture tutorials){
+    public Course(String department, String instructor, String semester, String name, String key, Long num, String year, Lecture lectures, Lecture tutorials){
         this.key = key;
         this.department = department;
         this.instructor = instructor;
@@ -80,11 +80,11 @@ public class Course {
         this.year = year;
     }
 
-    public Integer getNum() {
+    public Long getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(Long num) {
         this.num = num;
     }
 
@@ -96,5 +96,12 @@ public class Course {
         this.department = department;
     }
 
+    public String makeHeaderString(){
+       return getDepartment()+" "+getNum()+": "+getName();
+    }
+
+    public String makeFooterString(){
+        return getSemester()+" "+getYear();
+    }
 
 }
