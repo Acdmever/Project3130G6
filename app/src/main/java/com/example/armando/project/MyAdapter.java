@@ -6,7 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
 //TODO: cite the site I learned about the Recyclerview
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 private List<Course> values;
@@ -15,13 +19,27 @@ private List<Course> values;
         // each data item is just a string in this case
         public TextView txtHeader;
         public TextView txtFooter;
+        public Button detailsButton;
+        public ToggleButton courseToggle;
         public View layout;
 
         public ViewHolder(View v) {
             super(v);
             layout = v;
-            txtHeader = (TextView) v.findViewById(R.id.Header);
-            txtFooter = (TextView) v.findViewById(R.id.Footer);
+            txtHeader = v.findViewById(R.id.Header);
+            txtFooter = v.findViewById(R.id.Footer);
+            detailsButton = v.findViewById(R.id.button);
+            courseToggle = v.findViewById(R.id.toggleButton);
+            courseToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        // This is where registration will happen
+                    } else {
+                        // This is where a course is dropped.
+                    }
+                }
+            });
+
         }
     }
 
@@ -61,6 +79,10 @@ private List<Course> values;
 
         holder.txtHeader.setText(header);
         holder.txtFooter.setText(footer);
+
+        //toggleButton listener
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,15 +33,10 @@ public class CourseListActivity extends AppCompatActivity {
 
         FirebaseDatabase db=FirebaseDatabase.getInstance();
         DatabaseReference ref = db.getReference("Courses");
-
+ref.
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                //create the list of data to pass to the adaptor here.
-               // List<String> input = new ArrayList();
 
                 List<Course> input = new ArrayList();
                 Course course;
@@ -52,15 +48,21 @@ public class CourseListActivity extends AppCompatActivity {
 
                 listAdapter = new MyAdapter(input);
                 recyclerView.setAdapter(listAdapter);
-                //((TextView) findViewById(R.id.textView)).setText(user.getUsername().toString());
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                // Log.w(TAG, "Failed to read value.", error.toException());
+
             }
         });
+    }
+
+    public void onClickregister(View view){
+
+    }
+
+    public void onClickDetails(View view){
+
     }
 
 }
