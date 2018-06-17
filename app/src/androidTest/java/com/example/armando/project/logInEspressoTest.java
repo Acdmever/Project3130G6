@@ -26,14 +26,14 @@ public class logInEspressoTest {
     public void enterUsername() {
         Espresso.onView(withId(R.id.username)).perform(typeText("username"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.sign_in_button)).perform(click());
-        //invalid username/password
+        Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
     @Test
     public void enterPassword() {
         Espresso.onView(withId(R.id.password)).perform(typeText("password"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.sign_in_button)).perform(click());
-        //invalid username/password
+        Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class logInEspressoTest {
         Espresso.onView(withId(R.id.username)).perform(typeText("????"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.password)).perform(typeText("password"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.sign_in_button)).perform(click());
-        //invalid username/password
+        Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class logInEspressoTest {
         Espresso.onView(withId(R.id.username)).perform(typeText("username"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.password)).perform(typeText("1"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.sign_in_button)).perform(click());
-        //invalid username/password
+        Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
     @Test

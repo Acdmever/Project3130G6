@@ -7,19 +7,17 @@ import org.junit.BeforeClass;
 public class LoginUnitTest {
     @Test
     public void validateUserBadPass() {
-        assertEquals(1, logIn.validate("user", "notapassword"));
-        //Change to expect 0
+        assertEquals(0, logIn.validate("user", "notapassword"));
     }
 
     @Test
     public void validateBadUserBadPass() {
-        assertEquals(1, logIn.validate("notuser", "notapassword"));
-        //Change to expect 0
+        assertEquals(0, logIn.validate("notuser", "notapassword"));
     }
 
     @Test
     public void validateBadUserGoodPass() {
-        assertEquals(1, logIn.validate("", "password"));
+        assertEquals(0, logIn.validate("", "password"));
     }
 
     @Test

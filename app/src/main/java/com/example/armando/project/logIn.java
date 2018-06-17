@@ -4,30 +4,43 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class logIn {
 
-    public static int validate(String inputUser, String inputPass) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userNameRef = rootRef.child("Students").child("uuser");
-        ValueEventListener eventListener = new ValueEventListener() {
+    FirebaseDatabase db=FirebaseDatabase.getInstance();
+    DatabaseReference ref = db.getReference("Students");
+    String foundUser, foundPass;
+    Boolean validUser = true;
+
+    public int validate(String inputUser, final String inputPass) {
+        Query query = ref.orderByChild("username").equalTo(inputUser);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    //create new user
+                if (dataSnapshot.getChildrenCount() > 0) {
+                    Student student = new Student();
+                    foundUser = student.getUsername();
+                    foundPass = student.getPassword();
+                    if (inputPass.equals(foundPass))
+                        validUser = true;
+                    else
+                        validUser = false;
+                } else {
+                    validUser = false;
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        userNameRef.addListenerForSingleValueEvent(eventListener);
+            public void onCancelled(DatabaseError databaseError) {
 
-        //Check user table to see if username exits
-        // if not, return 0
-        //then check if password matches user's password from table
-        //return 1 if valid, 0 if not
-        return 1;
+            }
+        });
+
+        if (validUser)
+            return 1;
+        else
+            return 0;
     }
 }
