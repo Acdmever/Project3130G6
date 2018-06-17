@@ -4,7 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.Rule;
 import org.junit.Test;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -15,6 +14,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 
 
@@ -27,16 +27,43 @@ public class EspressoTest {
             MainActivity.class);
 
     @Test
-    public void onClickRegisterButton() {
+    public void onClickRegisterButton() throws InterruptedException {
         Intents.init();
         onView(withId(R.id.registerButton)).perform(click());
         intended(hasComponent(CourseListActivity.class.getName()));
 
-        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(1))
-                .check(matches(hasDescendant(withText("Spanish"))));
-        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(1))
-                .check(matches(hasDescendant(withText("fall"))));
+        //wait for list to load
+        Thread.sleep(5000);
+
+        //test to see if recyclerView loaded
+        String tag = "0item";
+        onView(withTagValue(is((Object)tag))).check(matches(hasDescendant(withText("Details"))));
 
         Intents.release();
     }
+
+    @Test
+    public void registrationCheck() throws InterruptedException {
+        Intents.init();
+        onView(withId(R.id.registerButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+
+        //test to see if recyclerView loaded
+        String tag = "0reg";
+        onView(withTagValue(is((Object)tag))).perform(click());
+        onView(withTagValue(is((Object)tag))).check(matches(isChecked()));
+        //Will be the message when registration is successful
+        onView(allOf(withId(android.support.design.R.id.snackbar_text))).check(matches(withText("Registered for course")));
+
+        Thread.sleep(5000);
+
+        onView(withTagValue(is((Object)tag))).perform(click());
+        onView(withTagValue(is((Object)tag))).check(matches(isNotChecked()));
+        onView(allOf(withId(android.support.design.R.id.snackbar_text))).check(matches(withText("Dropped from course")));
+        Intents.release();
+    }
+
 }

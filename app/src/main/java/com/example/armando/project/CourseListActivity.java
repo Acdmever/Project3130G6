@@ -33,7 +33,6 @@ public class CourseListActivity extends AppCompatActivity {
 
         FirebaseDatabase db=FirebaseDatabase.getInstance();
         DatabaseReference ref = db.getReference("Courses");
-ref.
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -55,10 +54,6 @@ ref.
 
             }
         });
-    }
-
-    public void onClickregister(View view){
-
     }
 
     public void onClickDetails(View view){

@@ -79,10 +79,9 @@ private List<Course> values;
 
         holder.txtHeader.setText(header);
         holder.txtFooter.setText(footer);
-
+        holder.courseToggle.setTag(values.get(position).getKey()+"reg");
+        holder.layout.setTag(values.get(position).getKey()+"item");
         //toggleButton listener
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
