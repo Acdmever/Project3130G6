@@ -2,6 +2,7 @@ package com.example.armando.project;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ private List<Course> values;
         public Button detailsButton;
         public ToggleButton courseToggle;
         public View layout;
-
+        //get student from intent
         public ViewHolder(View v) {
             super(v);
             layout = v;

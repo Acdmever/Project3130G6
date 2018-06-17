@@ -32,7 +32,7 @@ public class CourseListActivity extends AppCompatActivity {
 
 
         FirebaseDatabase db=FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference("Courses");
+        final DatabaseReference ref = db.getReference("Courses");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -42,6 +42,7 @@ public class CourseListActivity extends AppCompatActivity {
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
+                   //need to create student list so that buttons can be toggled correctly.
                     input.add(course);
                 }
 

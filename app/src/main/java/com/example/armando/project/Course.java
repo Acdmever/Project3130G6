@@ -1,5 +1,7 @@
 package com.example.armando.project;
 
+import java.util.ArrayList;
+
 public class Course {
     public String department;
     public String instructor;
@@ -10,6 +12,8 @@ public class Course {
     public String year;
     public Long num;
     public String key;
+    public ArrayList<String> students;
+
 
     public String getKey() {
         return key;
@@ -102,6 +106,20 @@ public class Course {
 
     public String makeFooterString(){
         return getSemester()+" "+getYear();
+    }
+
+    public ArrayList<String> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<String> students) {
+        this.students = students;
+    }
+
+    public Registration addStudent(String studentKey){
+        Registration reg;
+
+      return reg=new Registration();
     }
 
 }
