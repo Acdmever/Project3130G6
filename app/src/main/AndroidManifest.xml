@@ -17,6 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewCourseDetail"></activity>
+        <activity
+            android:name=".CourseListActivity"
+            android:label="@string/title_activity_course_list"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
-
 </manifest>
