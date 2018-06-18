@@ -12,7 +12,7 @@ public class Course {
     public String year;
     public Long num;
     public String key;
-    public ArrayList<String> students;
+    public ArrayList<String> students = new ArrayList();
 
 
     public String getKey() {
@@ -100,14 +100,6 @@ public class Course {
         this.department = department;
     }
 
-    public String makeHeaderString(){
-       return getDepartment()+" "+getNum()+": "+getName();
-    }
-
-    public String makeFooterString(){
-        return getSemester()+" "+getYear();
-    }
-
     public ArrayList<String> getStudents() {
         return students;
     }
@@ -116,10 +108,25 @@ public class Course {
         this.students = students;
     }
 
-    public Registration addStudent(String studentKey){
-        Registration reg;
-
-      return reg=new Registration();
+    public String makeHeaderString(){
+       return getDepartment()+" "+getNum()+": "+getName();
     }
 
+    public String makeFooterString(){
+        return getSemester()+" "+getYear();
+    }
+
+
+
+    public void addStudentToList(String studentKey){
+        students.add(studentKey);
+    }
+
+    public Registration addStudent(String studentKey){
+        addStudentToList(studentKey);
+        Registration reg =  new Registration(Integer.parseInt(key), Integer.parseInt(studentKey));
+        return reg;
+    }
+
+    //TODO add remove student in refactoring and/or for iteration 2.
 }

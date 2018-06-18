@@ -1,8 +1,10 @@
 package com.example.armando.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,23 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-//TODO: cite the site I learned about the Recyclerview
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+
+/************************************************************************************
+ *   Code Reference
+ *   Title: Using lists and grids in Android with RecyclerView - Tutorial
+ *   Author: vogella GmbH
+ *   Date: 20.06.2016
+ *   Version: Version 1.3
+ *   Availability: http://www.vogella.com/tutorials/AndroidRecyclerView/article.html
+ ***********************************************************************************/
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 private List<Course> values;
+private String studentId;
+private final FirebaseDatabase db;
+final View mainView;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -23,7 +39,7 @@ private List<Course> values;
         public Button detailsButton;
         public ToggleButton courseToggle;
         public View layout;
-        //get student from intent
+
         public ViewHolder(View v) {
             super(v);
             layout = v;
@@ -31,16 +47,6 @@ private List<Course> values;
             txtFooter = v.findViewById(R.id.Footer);
             detailsButton = v.findViewById(R.id.button);
             courseToggle = v.findViewById(R.id.toggleButton);
-            courseToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        // This is where registration will happen
-                    } else {
-                        // This is where a course is dropped.
-                    }
-                }
-            });
-
         }
     }
 
@@ -54,9 +60,11 @@ private List<Course> values;
         notifyItemRemoved(position);
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Course> myDataset) {
+    public MyAdapter(List<Course> myDataset, String studentId, FirebaseDatabase db, View mainView) {
         values = myDataset;
+        this.studentId = studentId;
+        this.db = db;
+        this.mainView = mainView;
     }
 
     // Create new views (invoked by the layout manager)
@@ -82,7 +90,29 @@ private List<Course> values;
         holder.txtFooter.setText(footer);
         holder.courseToggle.setTag(values.get(position).getKey()+"reg");
         holder.layout.setTag(values.get(position).getKey()+"item");
-        //toggleButton listener
+        if(values.get(position).getStudents().contains(studentId)){
+            holder.courseToggle.setChecked(true);
+        }
+
+        holder.courseToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String key = values.get(position).getKey()+"-"+studentId;
+                if (isChecked) {
+                   Registration  reg = values.get(position).addStudent(studentId);
+                   db.getReference("Registrations").child(key).setValue(reg);
+                   db.getReference("Courses").child(values.get(position).getKey()).child("students").setValue(values.get(position).getStudents());
+                   Snackbar.make(mainView, "Registered for course", Snackbar.LENGTH_LONG).show();
+
+                } else {
+                    //This section will be removed when the methods to remove a student are made for the Course class.
+                    ArrayList<String> newList = values.get(position).getStudents();
+                    newList.remove(studentId);
+                    db.getReference("Registrations").child(key).removeValue();
+                    db.getReference("Courses").child(values.get(position).getKey()).child("students").setValue(newList);
+                    Snackbar.make(mainView, "Dropped from course", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -90,5 +120,4 @@ private List<Course> values;
     public int getItemCount() {
         return values.size();
     }
-
 }

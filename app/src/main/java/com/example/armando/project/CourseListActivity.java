@@ -19,34 +19,30 @@ public class CourseListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter listAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private final String studentId = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-        FirebaseDatabase db=FirebaseDatabase.getInstance();
+        final FirebaseDatabase db=FirebaseDatabase.getInstance();
         final DatabaseReference ref = db.getReference("Courses");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 List<Course> input = new ArrayList();
                 Course course;
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
-                   //need to create student list so that buttons can be toggled correctly.
                     input.add(course);
                 }
-
-                listAdapter = new MyAdapter(input);
+                listAdapter = new MyAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
 
@@ -57,8 +53,6 @@ public class CourseListActivity extends AppCompatActivity {
         });
     }
 
-    public void onClickDetails(View view){
-
-    }
+    public void onClickDetails(View view){ }
 
 }

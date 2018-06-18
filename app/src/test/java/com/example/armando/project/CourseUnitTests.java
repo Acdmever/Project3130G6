@@ -23,8 +23,6 @@ public class CourseUnitTests {
 
         assertEquals("Spanish 3100: Testing Stuff", header);
         assertEquals("Fall 2013-2014", footer);
-
-
     }
 
     @Test
@@ -34,7 +32,7 @@ public class CourseUnitTests {
         course.setStudents(new ArrayList<String>());
 
         Registration reg = course.addStudent("0");
-        assertEquals(new Registration(Long.parseLong(course.key),0, "0-0"), reg);
+        assertTrue(reg.equals(new Registration(0,0)));
     }
 
 }

@@ -17,7 +17,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 
-
 @RunWith(AndroidJUnit4.class)
 
 public class EspressoTest {
@@ -65,5 +64,4 @@ public class EspressoTest {
         onView(allOf(withId(android.support.design.R.id.snackbar_text))).check(matches(withText("Dropped from course")));
         Intents.release();
     }
-
 }

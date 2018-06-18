@@ -1,40 +1,36 @@
 package com.example.armando.project;
 
 public class Registration {
-    public long course;
-    public long student;
-    public String key;
+    public Integer course;
+    public Integer student;
 
     public Registration() {
     }
 
-    public Registration(long course, long student, String key) {
+    public Registration(Integer course, Integer student) {
         this.course = course;
         this.student = student;
-        this.key = key;
     }
 
-    public long getCourse() {
+    public Integer getCourse() {
         return course;
     }
 
-    public void setCourse(long course) {
+    public void setCourse(Integer course) {
         this.course = course;
     }
 
-    public long getStudent() {
+    public Integer getStudent() {
         return student;
     }
 
-    public void setStudent(long student) {
-        this.student = student;
-    }
+    public void setStudent(Integer student) {
+        this.student = student;    }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+    public boolean equals(Registration reg) {
+        if(reg.getCourse() != course || reg.getStudent() != student) {
+            return false;
+        }
+            return true;
     }
 }
