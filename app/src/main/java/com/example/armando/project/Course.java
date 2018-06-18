@@ -1,5 +1,7 @@
 package com.example.armando.project;
 
+import java.util.ArrayList;
+
 public class Course {
     public String department;
     public String instructor;
@@ -10,6 +12,8 @@ public class Course {
     public String year;
     public Long num;
     public String key;
+    public ArrayList<String> students = new ArrayList();
+
 
     public String getKey() {
         return key;
@@ -96,6 +100,14 @@ public class Course {
         this.department = department;
     }
 
+    public ArrayList<String> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<String> students) {
+        this.students = students;
+    }
+
     public String makeHeaderString(){
        return getDepartment()+" "+getNum()+": "+getName();
     }
@@ -104,4 +116,17 @@ public class Course {
         return getSemester()+" "+getYear();
     }
 
+
+
+    public void addStudentToList(String studentKey){
+        students.add(studentKey);
+    }
+
+    public Registration addStudent(String studentKey){
+        addStudentToList(studentKey);
+        Registration reg =  new Registration(Integer.parseInt(key), Integer.parseInt(studentKey));
+        return reg;
+    }
+
+    //TODO add remove student in refactoring and/or for iteration 2.
 }

@@ -2,6 +2,8 @@ package com.example.armando.project;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -21,8 +23,16 @@ public class CourseUnitTests {
 
         assertEquals("Spanish 3100: Testing Stuff", header);
         assertEquals("Fall 2013-2014", footer);
+    }
 
+    @Test
+    public void studentListTest(){
+        Course course = new Course();
+        course.setKey("0");
+        course.setStudents(new ArrayList<String>());
 
+        Registration reg = course.addStudent("0");
+        assertTrue(reg.equals(new Registration(0,0)));
     }
 
 }
