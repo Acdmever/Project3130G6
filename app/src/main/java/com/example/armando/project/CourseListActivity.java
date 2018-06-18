@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,13 +18,15 @@ public class CourseListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter listAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    //Hard coded until login functionality is ironed out.
     private final String studentId = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -37,6 +38,7 @@ public class CourseListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Course> input = new ArrayList();
                 Course course;
+                //Reads in courses from firebase and saves them in a list
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
@@ -47,12 +49,7 @@ public class CourseListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
+            public void onCancelled(DatabaseError error) { } //needed for the listener
         });
     }
-
-    public void onClickDetails(View view){ }
-
 }

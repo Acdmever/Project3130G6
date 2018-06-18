@@ -1,11 +1,11 @@
 package com.example.armando.project;
 
 public class Lecture {
-    String monday;
-    String tuesday;
-    String wednesday;
-    String thursday;
-    String friday;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
 
     public Lecture(){}
 
@@ -49,10 +49,7 @@ public class Lecture {
         this.thursday = thursday;
     }
 
-    public String getFriday() {
-
-        return friday;
-    }
+    public String getFriday() { return friday; }
 
     public void setFriday(String friday) {
         this.friday = friday;

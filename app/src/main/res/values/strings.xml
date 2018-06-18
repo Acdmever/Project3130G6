@@ -11,6 +11,8 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+
+    <!-- Strings related to Home screen and Course list -->
     <string name="title_activity_course_list">CourseListActivity</string>
     <string name="registerButton">Register</string>
     <string name="dropButton">Drop</string>

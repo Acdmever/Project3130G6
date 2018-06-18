@@ -1,7 +1,5 @@
 package com.example.armando.project;
 
-
-
 public class Student {
 
     private String firstName;

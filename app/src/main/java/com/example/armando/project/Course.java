@@ -3,16 +3,16 @@ package com.example.armando.project;
 import java.util.ArrayList;
 
 public class Course {
-    public String department;
-    public String instructor;
-    public Lecture lectures;
-    public String semester;
-    public String name;
-    public Lecture tutorials;
-    public String year;
-    public Long num;
-    public String key;
-    public ArrayList<String> students = new ArrayList();
+    private String department;
+    private String instructor;
+    private Lecture lectures;
+    private String semester;
+    private String name;
+    private Lecture tutorials;
+    private String year;
+    private Long num;
+    private String key;
+    private ArrayList<String> students = new ArrayList();
 
 
     public String getKey() {
@@ -25,7 +25,8 @@ public class Course {
 
     public Course() { }
 
-    public Course(String department, String instructor, String semester, String name, String key, Long num, String year, Lecture lectures, Lecture tutorials){
+    public Course(String department, String instructor, String semester, String name, String key,
+                  Long num, String year, Lecture lectures, Lecture tutorials){
         this.key = key;
         this.department = department;
         this.instructor = instructor;
@@ -117,11 +118,12 @@ public class Course {
     }
 
 
-
-    public void addStudentToList(String studentKey){
+    private void addStudentToList(String studentKey){
         students.add(studentKey);
     }
 
+    //This method should be used whenever a user registers for a course, it ensures the course's
+    //user list is updated and a registration object created to match.
     public Registration addStudent(String studentKey){
         addStudentToList(studentKey);
         Registration reg =  new Registration(Integer.parseInt(key), Integer.parseInt(studentKey));

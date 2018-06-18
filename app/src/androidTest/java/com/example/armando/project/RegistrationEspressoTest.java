@@ -34,7 +34,7 @@ public class RegistrationEspressoTest {
         Espresso.onView(withId(R.id.password))
                 .perform(typeText("pass"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.signInButton)).perform(click());
-
+        Thread.sleep(5000);
         onView(withId(R.id.coursesButton)).perform(click());
         intended(hasComponent(CourseListActivity.class.getName()));
 
@@ -56,7 +56,7 @@ public class RegistrationEspressoTest {
         Espresso.onView(withId(R.id.password))
                 .perform(typeText("pass"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.signInButton)).perform(click());
-
+        Thread.sleep(5000);
         onView(withId(R.id.coursesButton)).perform(click());
         intended(hasComponent(CourseListActivity.class.getName()));
 
