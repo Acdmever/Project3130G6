@@ -40,38 +40,52 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Student {
-    //Firebase.setAndroidContext(this);
-    //private FirebaseDatabase db=FirebaseDatabase.getInstance();
-    //private DatabaseReference ref=db.getReference("Test");
 
-    private String firstName = new String();
-    private String lastName = new String();
-    private int id;
-    public  Student(int id) {
-        //this.db = FirebaseDatabase.getInstance();
-        // or find the student with the given id
-    }
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
 
     public Student() {
-        //this.db = FirebaseDatabase.getInstance();
-        //this.ref = db.getReference("Test");
-
-        System.out.println("Made a student");
-        //create a new student in the database
-    }
-
-    void setFirstName(String fn) {
-        FirebaseDatabase db=FirebaseDatabase.getInstance();
-        DatabaseReference ref=db.getReference("Test");
-        //set the first name in the database
-        ref.setValue(fn);
-
 
     }
 
-    String getFirstName() {
-        return "";
+    public Student(String firstName, String lastName, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
