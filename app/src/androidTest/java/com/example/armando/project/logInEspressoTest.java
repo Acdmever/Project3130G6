@@ -25,14 +25,14 @@ public class logInEspressoTest {
     @Test
     public void enterUsername() {
         Espresso.onView(withId(R.id.username)).perform(typeText("username"), closeSoftKeyboard());
-        Espresso.onView(withId(R.id.sign_in_button)).perform(click());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
         Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
     @Test
     public void enterPassword() {
         Espresso.onView(withId(R.id.password)).perform(typeText("password"), closeSoftKeyboard());
-        Espresso.onView(withId(R.id.sign_in_button)).perform(click());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
         Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
@@ -40,7 +40,7 @@ public class logInEspressoTest {
     public void enterInvalidUsername() {
         Espresso.onView(withId(R.id.username)).perform(typeText("????"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.password)).perform(typeText("password"), closeSoftKeyboard());
-        Espresso.onView(withId(R.id.sign_in_button)).perform(click());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
         Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
@@ -48,7 +48,7 @@ public class logInEspressoTest {
     public void enterInvalidPassword() {
         Espresso.onView(withId(R.id.username)).perform(typeText("username"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.password)).perform(typeText("1"), closeSoftKeyboard());
-        Espresso.onView(withId(R.id.sign_in_button)).perform(click());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
         Espresso.onView(withId(R.id.statusMessage)).check(matches(withText("Invalid username/password")));
     }
 
@@ -56,7 +56,7 @@ public class logInEspressoTest {
     public void fullValidation() {
         Espresso.onView(withId(R.id.username)).perform(typeText("user"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.password)).perform(typeText("pass"), closeSoftKeyboard());
-        Espresso.onView(withId(R.id.sign_in_button)).perform(click());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
         Espresso.onView(withId(R.id.textView)).check(matches(withText("University of Maximegalon Course Registration")));
     }
 }

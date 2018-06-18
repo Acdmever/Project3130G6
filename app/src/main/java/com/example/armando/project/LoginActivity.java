@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         logInAttempt = new logIn();
 
         //Set button
-        final Button validateButton = findViewById(R.id.sign_in_button);
+        final Button validateButton = findViewById(R.id.signInButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 inputUser = inputUserView.getText().toString();
