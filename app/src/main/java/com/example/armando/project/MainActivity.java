@@ -25,4 +25,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
         finish();
     }
+
+    public void onClickShowCourses(View view) {
+        Intent intent = new Intent(this, CourseListActivity.class);
+        startActivity(intent);
+    }
 }

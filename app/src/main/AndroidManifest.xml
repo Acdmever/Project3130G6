@@ -27,7 +27,11 @@
             android:name=".MainActivity"
             android:label="Dashboard">
         </activity>
-
+        <activity
+            android:name=".CourseListActivity"
+            android:label="@string/title_activity_course_list"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
-
 </manifest>

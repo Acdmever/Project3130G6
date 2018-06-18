@@ -11,4 +11,10 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="title_activity_course_list">CourseListActivity</string>
+    <string name="registerButton">Register</string>
+    <string name="dropButton">Drop</string>
+    <string name="courseDetails">Details</string>
+    <string name="courseTitle">Course # and Title</string>
+    <string name="courseSemesterYear">Semester and Year</string>
 </resources>
