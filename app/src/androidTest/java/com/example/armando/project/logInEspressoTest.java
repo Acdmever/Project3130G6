@@ -54,9 +54,9 @@ public class logInEspressoTest {
 
     @Test
     public void fullValidation() {
-        Espresso.onView(withId(R.id.username)).perform(typeText("username"), closeSoftKeyboard());
-        Espresso.onView(withId(R.id.password)).perform(typeText("password"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.username)).perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password)).perform(typeText("pass"), closeSoftKeyboard());
         Espresso.onView(withId(R.id.sign_in_button)).perform(click());
-        //validate go to main activity
+        Espresso.onView(withId(R.id.textView)).check(matches(withText("University of Maximegalon Course Registration")));
     }
 }

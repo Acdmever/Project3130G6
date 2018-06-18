@@ -22,6 +22,6 @@ public class LoginUnitTest {
 
     @Test
     public void validateUserGoodPass() {
-        assertEquals(1, logIn.validate("user", "password"));
+        assertEquals(1, logIn.validate("user", "pass"));
     }
 }
