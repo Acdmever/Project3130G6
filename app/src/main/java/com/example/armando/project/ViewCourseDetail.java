@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class ViewCourseDetail extends AppCompatActivity {
 
     public static TextView txtDepartment;
@@ -27,16 +29,16 @@ public class ViewCourseDetail extends AppCompatActivity {
         txtYear = findViewById(R.id.Year);
         txtDescription = findViewById(R.id.Description);
 
-        showCourseDetail(getIntent().getStringArrayExtra("course"));
+        showCourseDetail((HashMap<String, String>)getIntent().getSerializableExtra("course"));
     }
 
-    private void showCourseDetail(String[] courseDetails) {
-        txtDepartment.setText(courseDetails[0]);
-        txtInstructor.setText(courseDetails[1]);
-        txtName.setText(courseDetails[2]);
-        txtNumber.setText(courseDetails[3]);
-        txtSemester.setText(courseDetails[4]);
-        txtYear.setText(courseDetails[5]);
-        txtDescription.setText(courseDetails[6]);
+    private void showCourseDetail(HashMap<String, String> courseDetails) {
+        txtDepartment.setText(courseDetails.get("department"));
+        txtInstructor.setText(courseDetails.get("instructor"));
+        txtName.setText(courseDetails.get("name"));
+        txtNumber.setText(courseDetails.get("num"));
+        txtSemester.setText(courseDetails.get("semester"));
+        txtYear.setText(courseDetails.get("year"));
+        txtDescription.setText(courseDetails.get("description"));
     }
 }

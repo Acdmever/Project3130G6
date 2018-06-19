@@ -1,6 +1,7 @@
 package com.example.armando.project;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Course {
     private String department;
@@ -127,17 +128,17 @@ public class Course {
         return getSemester()+" "+getYear();
     }
 
-    public String[] getCourseDetail() {
-        String[] s = {
-                this.getDepartment(),
-                this.getInstructor(),
-                this.getName(),
-                this.getNum() + "",
-                this.getSemester(),
-                this.getYear(),
-                this.getDescription()
-        };
-        return s;
+    public HashMap<String, String> getCourseDetail() {
+        HashMap<String, String> courseDetails = new HashMap<>();
+        courseDetails.put("department", this.getDepartment());
+        courseDetails.put("instructor", this.getInstructor());
+        courseDetails.put("name", this.getName());
+        courseDetails.put("num", this.getNum()+"");
+        courseDetails.put("semester", this.getSemester());
+        courseDetails.put("year", this.getYear());
+        courseDetails.put("description", this.getDescription());
+
+        return courseDetails;
     }
 
     private void addStudentToList(String studentKey){

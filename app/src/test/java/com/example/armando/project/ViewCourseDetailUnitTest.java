@@ -3,6 +3,8 @@ package com.example.armando.project;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.assertTrue;
 
 
@@ -26,13 +28,13 @@ public class ViewCourseDetailUnitTest {
 
     @Test
     public void showCourseDetails () {
-        String[] mockCourseDetails = mockCourse.getCourseDetail();
+        HashMap<String, String> mockCourseDetails = mockCourse.getCourseDetail();
         assertTrue(true);
     }
 
     @Test
     public void showCourseDetailError () {
-        String[] mockCourseDetails = mockCourse.getCourseDetail();
+        HashMap<String, String> mockCourseDetails = mockCourse.getCourseDetail();
         assertTrue(true);
     }
 }

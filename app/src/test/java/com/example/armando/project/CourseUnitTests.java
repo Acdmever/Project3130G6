@@ -3,6 +3,7 @@ package com.example.armando.project;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
@@ -47,16 +48,16 @@ public class CourseUnitTests {
         mockCourse.setYear("2013-2014");
         mockCourse.setDescription("Learn how to test in Spanish");
 
-        String[] mockCourseDetails = {
-                mockCourse.getDepartment(),
-                mockCourse.getInstructor(),
-                mockCourse.getName(),
-                mockCourse.getNum() + "",
-                mockCourse.getSemester(),
-                mockCourse.getYear(),
-                mockCourse.getDescription()
-        };
-        assertArrayEquals(mockCourse.getCourseDetail(), mockCourseDetails);
+        HashMap<String, String> mockCourseDetails = new HashMap<>();
+        mockCourseDetails.put("department", mockCourse.getDepartment());
+        mockCourseDetails.put("instructor", mockCourse.getInstructor());
+        mockCourseDetails.put("name", mockCourse.getName());
+        mockCourseDetails.put("num", mockCourse.getNum()+"");
+        mockCourseDetails.put("semester", mockCourse.getSemester());
+        mockCourseDetails.put("year", mockCourse.getYear());
+        mockCourseDetails.put("description", mockCourse.getDescription());
+
+        assertEquals(mockCourseDetails.get("description"), mockCourse.getCourseDetail().get("description"));
     }
 
 }
