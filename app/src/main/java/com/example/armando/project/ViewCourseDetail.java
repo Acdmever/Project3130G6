@@ -11,7 +11,7 @@ public class ViewCourseDetail extends AppCompatActivity {
         setContentView(R.layout.activity_view_course_detail);
     }
 
-    public static boolean showCourseDetail(int courseId) {
+    public boolean showCourseDetail(String[] courseDetails) {
         //When course name is clicked, details of course are fetched from the DB
         //Details are then displayed on the UI
         return true;

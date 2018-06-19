@@ -35,4 +35,16 @@ public class CourseUnitTests {
         assertTrue(reg.equals(new Registration(0,0)));
     }
 
+    @Test
+    public void courseDetailsTest() {
+        Course mockCourse = new Course();
+        mockCourse.setDepartment("Spanish");
+        mockCourse.setNum((long)3100);
+        mockCourse.setName("Testing Stuff");
+        mockCourse.setSemester("Fall");
+        mockCourse.setYear("2013-2014");
+        mockCourse.setDescription("Learn how to test in Spanish");
+        assertEquals(mockCourse.getCourseDetail(), null);
+    }
+
 }

@@ -10,6 +10,7 @@ public class Course {
     public String name;
     public Lecture tutorials;
     public String year;
+    public String description;
     public Long num;
     public String key;
     public ArrayList<String> students = new ArrayList();
@@ -25,7 +26,7 @@ public class Course {
 
     public Course() { }
 
-    public Course(String department, String instructor, String semester, String name, String key, Long num, String year, Lecture lectures, Lecture tutorials){
+    public Course(String department, String instructor, String semester, String name, String key, Long num, String year, String description, Lecture lectures, Lecture tutorials){
         this.key = key;
         this.department = department;
         this.instructor = instructor;
@@ -33,6 +34,7 @@ public class Course {
         this.name = name;
         this.num = num;
         this.year = year;
+        this.description = description;
         this.lectures = lectures;
         this.lectures = tutorials;
     }
@@ -84,6 +86,14 @@ public class Course {
         this.year = year;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Long getNum() {
         return num;
     }
@@ -116,13 +126,16 @@ public class Course {
         return getSemester()+" "+getYear();
     }
 
-
+    public String[] getCourseDetail() {
+        String[] s = null;
+        return s;
+    }
 
     public void addStudentToList(String studentKey){
         students.add(studentKey);
     }
 
-    public Registration addStudent(String studentKey){
+    public Registration addStudent(String studentKey) {
         addStudentToList(studentKey);
         Registration reg =  new Registration(Integer.parseInt(key), Integer.parseInt(studentKey));
         return reg;
