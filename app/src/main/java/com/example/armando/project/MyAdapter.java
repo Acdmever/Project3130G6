@@ -27,10 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
  ***********************************************************************************/
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-private List<Course> values;
-private String studentId;
-private final FirebaseDatabase db;
-final View mainView;
+    private List<Course> values;
+    private String studentId;
+    private final FirebaseDatabase db;
+    final View mainView;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtHeader;
@@ -84,10 +84,20 @@ final View mainView;
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final String header = values.get(position).makeHeaderString();
         final String footer = values.get(position).makeFooterString();
-
+        final Course selectedCourse = values.get(position);
         holder.txtHeader.setText(header);
         holder.txtFooter.setText(footer);
+
+        holder.detailsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewCourseDetail.class);
+                intent.putExtra("course", selectedCourse.getCourseDetail());
+                v.getContext().startActivity(intent);
+            }
+        });
+
         holder.courseToggle.setTag(values.get(position).getKey()+"reg");
+        holder.detailsButton.setTag(values.get(position).getKey()+"det");
         holder.layout.setTag(values.get(position).getKey()+"item");
         if(values.get(position).getStudents().contains(studentId)){
             holder.courseToggle.setChecked(true);

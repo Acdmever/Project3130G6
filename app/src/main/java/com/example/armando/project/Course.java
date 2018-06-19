@@ -1,6 +1,7 @@
 package com.example.armando.project;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Course {
     private String department;
@@ -10,6 +11,7 @@ public class Course {
     private String name;
     private Lecture tutorials;
     private String year;
+    private String description;
     private Long num;
     private String key;
     private ArrayList<String> students = new ArrayList();
@@ -26,7 +28,7 @@ public class Course {
     public Course() { }
 
     public Course(String department, String instructor, String semester, String name, String key,
-                  Long num, String year, Lecture lectures, Lecture tutorials){
+                  Long num, String year, String description, Lecture lectures, Lecture tutorials){
         this.key = key;
         this.department = department;
         this.instructor = instructor;
@@ -34,6 +36,7 @@ public class Course {
         this.name = name;
         this.num = num;
         this.year = year;
+        this.description = description;
         this.lectures = lectures;
         this.lectures = tutorials;
     }
@@ -85,6 +88,14 @@ public class Course {
         this.year = year;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Long getNum() {
         return num;
     }
@@ -117,6 +128,18 @@ public class Course {
         return getSemester()+" "+getYear();
     }
 
+    public HashMap<String, String> getCourseDetail() {
+        HashMap<String, String> courseDetails = new HashMap<>();
+        courseDetails.put("department", this.getDepartment());
+        courseDetails.put("instructor", this.getInstructor());
+        courseDetails.put("name", this.getName());
+        courseDetails.put("num", this.getNum()+"");
+        courseDetails.put("semester", this.getSemester());
+        courseDetails.put("year", this.getYear());
+        courseDetails.put("description", this.getDescription());
+
+        return courseDetails;
+    }
 
     private void addStudentToList(String studentKey){
         students.add(studentKey);

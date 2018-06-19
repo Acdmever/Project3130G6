@@ -3,8 +3,10 @@ package com.example.armando.project;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CourseUnitTests {
@@ -33,6 +35,29 @@ public class CourseUnitTests {
 
         Registration reg = course.addStudent("0");
         assertTrue(reg.equals(new Registration(0,0)));
+    }
+
+    @Test
+    public void courseDetailsTest() {
+        Course mockCourse = new Course();
+        mockCourse.setDepartment("Spanish");
+        mockCourse.setInstructor("Fernando R");
+        mockCourse.setNum((long)3100);
+        mockCourse.setName("Testing Stuff");
+        mockCourse.setSemester("Fall");
+        mockCourse.setYear("2013-2014");
+        mockCourse.setDescription("Learn how to test in Spanish");
+
+        HashMap<String, String> mockCourseDetails = new HashMap<>();
+        mockCourseDetails.put("department", mockCourse.getDepartment());
+        mockCourseDetails.put("instructor", mockCourse.getInstructor());
+        mockCourseDetails.put("name", mockCourse.getName());
+        mockCourseDetails.put("num", mockCourse.getNum()+"");
+        mockCourseDetails.put("semester", mockCourse.getSemester());
+        mockCourseDetails.put("year", mockCourse.getYear());
+        mockCourseDetails.put("description", mockCourse.getDescription());
+
+        assertEquals(mockCourseDetails.get("description"), mockCourse.getCourseDetail().get("description"));
     }
 
 }
