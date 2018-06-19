@@ -29,10 +29,7 @@ public class ViewCourseDetail extends AppCompatActivity {
         txtYear = findViewById(R.id.Year);
         txtDescription = findViewById(R.id.Description);
 
-        showCourseDetail((HashMap<String, String>)getIntent().getSerializableExtra("course"));
-    }
-
-    private void showCourseDetail(HashMap<String, String> courseDetails) {
+        HashMap<String, String> courseDetails = (HashMap<String, String>)getIntent().getSerializableExtra("course");
         txtDepartment.setText(courseDetails.get("department"));
         txtInstructor.setText(courseDetails.get("instructor"));
         txtName.setText(courseDetails.get("name"));
