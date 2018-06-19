@@ -97,6 +97,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         });
 
         holder.courseToggle.setTag(values.get(position).getKey()+"reg");
+        holder.detailsButton.setTag(values.get(position).getKey()+"det");
         holder.layout.setTag(values.get(position).getKey()+"item");
         if(values.get(position).getStudents().contains(studentId)){
             holder.courseToggle.setChecked(true);
