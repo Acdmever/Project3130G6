@@ -64,4 +64,26 @@ public class EspressoTest {
         onView(allOf(withId(android.support.design.R.id.snackbar_text))).check(matches(withText("Dropped from course")));
         Intents.release();
     }
+
+    @Test
+    public void showCourseDetails() throws InterruptedException {
+        Intents.init();
+        onView(withId(R.id.registerButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+        Intents.release();
+    }
+
+    @Test
+    public void showCourseDetailsError() throws InterruptedException {
+        Intents.init();
+        onView(withId(R.id.registerButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+        Intents.release();
+    }
 }

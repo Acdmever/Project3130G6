@@ -127,7 +127,15 @@ public class Course {
     }
 
     public String[] getCourseDetail() {
-        String[] s = null;
+        String[] s = {
+                this.getDepartment(),
+                this.getInstructor(),
+                this.getName(),
+                this.getNum() + "",
+                this.getSemester(),
+                this.getYear(),
+                this.getDescription()
+        };
         return s;
     }
 

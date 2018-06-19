@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CourseUnitTests {
@@ -39,12 +40,23 @@ public class CourseUnitTests {
     public void courseDetailsTest() {
         Course mockCourse = new Course();
         mockCourse.setDepartment("Spanish");
+        mockCourse.setInstructor("Fernando R");
         mockCourse.setNum((long)3100);
         mockCourse.setName("Testing Stuff");
         mockCourse.setSemester("Fall");
         mockCourse.setYear("2013-2014");
         mockCourse.setDescription("Learn how to test in Spanish");
-        assertEquals(mockCourse.getCourseDetail(), null);
+
+        String[] mockCourseDetails = {
+                mockCourse.getDepartment(),
+                mockCourse.getInstructor(),
+                mockCourse.getName(),
+                mockCourse.getNum() + "",
+                mockCourse.getSemester(),
+                mockCourse.getYear(),
+                mockCourse.getDescription()
+        };
+        assertArrayEquals(mockCourse.getCourseDetail(), mockCourseDetails);
     }
 
 }
