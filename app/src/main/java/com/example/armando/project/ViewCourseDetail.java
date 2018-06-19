@@ -27,11 +27,16 @@ public class ViewCourseDetail extends AppCompatActivity {
         txtYear = findViewById(R.id.Year);
         txtDescription = findViewById(R.id.Description);
 
+        showCourseDetail(getIntent().getStringArrayExtra("course"));
     }
 
-    public boolean showCourseDetail(String[] courseDetails) {
-        //When course name is clicked, details of course are fetched from the DB
-        //Details are then displayed on the UI
-        return true;
+    private void showCourseDetail(String[] courseDetails) {
+        txtDepartment.setText(courseDetails[0]);
+        txtInstructor.setText(courseDetails[1]);
+        txtName.setText(courseDetails[2]);
+        txtNumber.setText(courseDetails[3]);
+        txtSemester.setText(courseDetails[4]);
+        txtYear.setText(courseDetails[5]);
+        txtDescription.setText(courseDetails[6]);
     }
 }

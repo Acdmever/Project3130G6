@@ -27,10 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
  ***********************************************************************************/
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-private List<Course> values;
-private String studentId;
-private final FirebaseDatabase db;
-final View mainView;
+    private List<Course> values;
+    private String studentId;
+    private final FirebaseDatabase db;
+    final View mainView;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -85,9 +85,18 @@ final View mainView;
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final String header = values.get(position).makeHeaderString();
         final String footer = values.get(position).makeFooterString();
-
+        final Course selectedCourse = values.get(position);
         holder.txtHeader.setText(header);
         holder.txtFooter.setText(footer);
+
+        holder.detailsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewCourseDetail.class);
+                intent.putExtra("course", selectedCourse.getCourseDetail());
+                v.getContext().startActivity(intent);
+            }
+        });
+
         holder.courseToggle.setTag(values.get(position).getKey()+"reg");
         holder.layout.setTag(values.get(position).getKey()+"item");
         if(values.get(position).getStudents().contains(studentId)){
@@ -98,10 +107,10 @@ final View mainView;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String key = values.get(position).getKey()+"-"+studentId;
                 if (isChecked) {
-                   Registration  reg = values.get(position).addStudent(studentId);
-                   db.getReference("Registrations").child(key).setValue(reg);
-                   db.getReference("Courses").child(values.get(position).getKey()).child("students").setValue(values.get(position).getStudents());
-                   Snackbar.make(mainView, "Registered for course", Snackbar.LENGTH_LONG).show();
+                    Registration  reg = values.get(position).addStudent(studentId);
+                    db.getReference("Registrations").child(key).setValue(reg);
+                    db.getReference("Courses").child(values.get(position).getKey()).child("students").setValue(values.get(position).getStudents());
+                    Snackbar.make(mainView, "Registered for course", Snackbar.LENGTH_LONG).show();
 
                 } else {
                     //This section will be removed when the methods to remove a student are made for the Course class.
