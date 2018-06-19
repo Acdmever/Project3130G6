@@ -1,31 +1,19 @@
 package com.example.armando.project;
 
-
-
 public class Student {
 
     private String firstName;
     private String lastName;
     private String username;
     private String password;
-    private String key;
 
-    public Student() {}
+    public Student() { }
 
-    public Student(String firstName, String lastName, String usernme, String password, String key) {
+    public Student(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getFirstName() {

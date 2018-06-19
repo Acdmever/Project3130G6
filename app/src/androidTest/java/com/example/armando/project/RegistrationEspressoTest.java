@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.Rule;
 import org.junit.Test;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -19,16 +20,22 @@ import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 
-public class EspressoTest {
+public class RegistrationEspressoTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<LoginActivity> mActivityRule =
+           new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void onClickRegisterButton() throws InterruptedException {
+    public void onClickCoursesButton() throws InterruptedException {
         Intents.init();
-        onView(withId(R.id.registerButton)).perform(click());
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.coursesButton)).perform(click());
         intended(hasComponent(CourseListActivity.class.getName()));
 
         //wait for list to load
@@ -44,7 +51,13 @@ public class EspressoTest {
     @Test
     public void registrationCheck() throws InterruptedException {
         Intents.init();
-        onView(withId(R.id.registerButton)).perform(click());
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.coursesButton)).perform(click());
         intended(hasComponent(CourseListActivity.class.getName()));
 
         //wait for list to load
@@ -55,13 +68,16 @@ public class EspressoTest {
         onView(withTagValue(is((Object)tag))).perform(click());
         onView(withTagValue(is((Object)tag))).check(matches(isChecked()));
         //Will be the message when registration is successful
-        onView(allOf(withId(android.support.design.R.id.snackbar_text))).check(matches(withText("Registered for course")));
+        onView(allOf(withId(android.support.design.R.id.snackbar_text)))
+                .check(matches(withText("Registered for course")));
 
         Thread.sleep(5000);
 
         onView(withTagValue(is((Object)tag))).perform(click());
         onView(withTagValue(is((Object)tag))).check(matches(isNotChecked()));
-        onView(allOf(withId(android.support.design.R.id.snackbar_text))).check(matches(withText("Dropped from course")));
+        onView(allOf(withId(android.support.design.R.id.snackbar_text)))
+                .check(matches(withText("Dropped from course")));
+
         Intents.release();
     }
 

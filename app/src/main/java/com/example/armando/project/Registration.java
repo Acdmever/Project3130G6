@@ -1,8 +1,8 @@
 package com.example.armando.project;
 
 public class Registration {
-    public Integer course;
-    public Integer student;
+    private Integer course;
+    private Integer student;
 
     public Registration() {
     }
@@ -24,8 +24,7 @@ public class Registration {
         return student;
     }
 
-    public void setStudent(Integer student) {
-        this.student = student;    }
+    public void setStudent(Integer student) { this.student = student; }
 
     public boolean equals(Registration reg) {
         if(reg.getCourse() != course || reg.getStudent() != student) {

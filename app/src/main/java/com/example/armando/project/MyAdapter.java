@@ -33,7 +33,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     final View mainView;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         public TextView txtHeader;
         public TextView txtFooter;
         public Button detailsButton;
@@ -103,22 +102,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             holder.courseToggle.setChecked(true);
         }
 
+        //Toggle button listener to handle when the user registrations or drops for a course
         holder.courseToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String key = values.get(position).getKey()+"-"+studentId;
                 if (isChecked) {
-                    Registration  reg = values.get(position).addStudent(studentId);
-                    db.getReference("Registrations").child(key).setValue(reg);
-                    db.getReference("Courses").child(values.get(position).getKey()).child("students").setValue(values.get(position).getStudents());
-                    Snackbar.make(mainView, "Registered for course", Snackbar.LENGTH_LONG).show();
+                   Registration  reg = values.get(position).addStudent(studentId);
+                   db.getReference("Registrations").child(key).setValue(reg);
+                   db.getReference("Courses").child(values.get(position).getKey())
+                           .child("students").setValue(values.get(position).getStudents());
+
+                   Snackbar.make(mainView, "Registered for course", Snackbar.LENGTH_LONG)
+                           .show();
 
                 } else {
-                    //This section will be removed when the methods to remove a student are made for the Course class.
+                    //This section will be restructured when the methods to remove a student are
+                    //made for the Course class.
                     ArrayList<String> newList = values.get(position).getStudents();
                     newList.remove(studentId);
                     db.getReference("Registrations").child(key).removeValue();
-                    db.getReference("Courses").child(values.get(position).getKey()).child("students").setValue(newList);
-                    Snackbar.make(mainView, "Dropped from course", Snackbar.LENGTH_LONG).show();
+                    db.getReference("Courses").child(values.get(position).getKey())
+                            .child("students").setValue(newList);
+
+                    Snackbar.make(mainView, "Dropped from course", Snackbar.LENGTH_LONG)
+                            .show();
                 }
             }
         });

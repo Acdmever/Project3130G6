@@ -12,17 +12,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Needed to connect to database
         FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //FireBaseDatabase can be made private and final
-        FirebaseDatabase db=FirebaseDatabase.getInstance();
+    }
+
+    public void onClickGoToLogIn(View view) {
+        Intent myIntent = new Intent(this, LoginActivity.class);
+        startActivity(myIntent);
+        finish();
     }
 
     public void onClickShowCourses(View view) {
         Intent intent = new Intent(this, CourseListActivity.class);
         startActivity(intent);
-
     }
 }
