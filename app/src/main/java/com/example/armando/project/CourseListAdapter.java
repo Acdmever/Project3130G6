@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 
 /************************************************************************************
@@ -26,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
  *   Availability: http://www.vogella.com/tutorials/AndroidRecyclerView/article.html
  ***********************************************************************************/
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private List<Course> values;
     private String studentId;
     private final FirebaseDatabase db;
@@ -59,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         notifyItemRemoved(position);
     }
 
-    public MyAdapter(List<Course> myDataset, String studentId, FirebaseDatabase db, View mainView) {
+    public CourseListAdapter(List<Course> myDataset, String studentId, FirebaseDatabase db, View mainView) {
         values = myDataset;
         this.studentId = studentId;
         this.db = db;
@@ -68,8 +67,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public CourseListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                           int viewType) {
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
         View v =

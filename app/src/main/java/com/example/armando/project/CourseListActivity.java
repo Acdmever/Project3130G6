@@ -20,7 +20,7 @@ public class CourseListActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
 
     //Hard coded until login functionality is ironed out.
-    private final String studentId = "0";
+    private final String studentId = "5";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class CourseListActivity extends AppCompatActivity {
                     course.setKey(snap.getKey());
                     input.add(course);
                 }
-                listAdapter = new MyAdapter(input, studentId, db, findViewById(android.R.id.content));
+                listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
 
