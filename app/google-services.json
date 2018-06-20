@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "5816957617",
+    "firebase_url": "https://project3130g6.firebaseio.com",
+    "project_id": "project3130g6",
+    "storage_bucket": "project3130g6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5816957617:android:7a953d35244056c3",
+        "android_client_info": {
+          "package_name": "com.example.armando.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5816957617-8u1as6vgsedqgj096hurbgi1in79h721.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.armando.project",
+            "certificate_hash": "21053cb6be22f04f316778e53753860c5e548c6b"
+          }
+        },
+        {
+          "client_id": "5816957617-88onee50f67621q5ta6nr20umdp89ice.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "5816957617-88onee50f67621q5ta6nr20umdp89ice.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9-yaXIn7u95cOLhpOfaE39HuNl4w03_4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5816957617-88onee50f67621q5ta6nr20umdp89ice.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
