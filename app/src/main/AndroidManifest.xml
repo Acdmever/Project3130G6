@@ -23,7 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewCourseDetail"></activity>
+        <activity
+            android:name=".ViewCourseDetail"
+            android:label="Course Details">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="Dashboard">
