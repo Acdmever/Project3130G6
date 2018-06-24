@@ -9,12 +9,14 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 
@@ -25,6 +27,25 @@ public class RegistrationEspressoTest {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule =
             new ActivityTestRule<>(LoginActivity.class);
+
+    @Test
+    public void onClickDropDown() throws InterruptedException{
+        Intents.init();
+
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+
+        Thread.sleep(5000);
+
+        //To-Do: Write more espresso tests once we have functionality built into the drop down
+        onView(withId(R.id.coursesButton)).perform(click());
+        onView(withId(R.id.courses_toolbar)).perform(click());
+
+        Intents.release();
+    }
 
     @Test
     public void onClickCoursesButton() throws InterruptedException {
