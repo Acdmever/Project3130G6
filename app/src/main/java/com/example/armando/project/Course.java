@@ -147,6 +147,8 @@ public class Course {
         courseDetails.put("semester", this.getSemester());
         courseDetails.put("year", this.getYear());
         courseDetails.put("description", this.getDescription());
+        courseDetails.put("enrolment", this.getEnrolment()+"");
+        courseDetails.put("limit", this.getLimit()+"");
 
         return courseDetails;
     }
