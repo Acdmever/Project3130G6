@@ -10,6 +10,8 @@ public class Course {
     private String semester;
     private String name;
     private Lecture tutorials;
+    private int enrolment;
+    private int limit;
     private String year;
     private String description;
     private Long num;
@@ -28,7 +30,7 @@ public class Course {
     public Course() { }
 
     public Course(String department, String instructor, String semester, String name, String key,
-                  Long num, String year, String description, Lecture lectures, Lecture tutorials){
+                  Long num, String year, String description, Lecture lectures, Lecture tutorials, int enrolment, int limit){
         this.key = key;
         this.department = department;
         this.instructor = instructor;
@@ -39,6 +41,8 @@ public class Course {
         this.description = description;
         this.lectures = lectures;
         this.lectures = tutorials;
+        this.enrolment = enrolment;
+        this.limit = limit;
     }
 
     public Lecture getTutorials() {
@@ -99,6 +103,12 @@ public class Course {
     public Long getNum() {
         return num;
     }
+
+    public int getEnrolment() { return enrolment; }
+    public void setEnrolment() { this.enrolment = enrolment; }
+
+    public int getLimit() { return limit; }
+    public void setLimit() { this.limit = limit; }
 
     public void setNum(Long num) {
         this.num = num;
