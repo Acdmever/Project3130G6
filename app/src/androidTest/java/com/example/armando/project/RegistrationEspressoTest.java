@@ -17,6 +17,7 @@ import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 
@@ -40,10 +41,13 @@ public class RegistrationEspressoTest {
 
         Thread.sleep(5000);
 
-        //To-Do: Write more espresso tests once we have functionality built into the drop down
         onView(withId(R.id.coursesButton)).perform(click());
-        onView(withId(R.id.courses_toolbar)).perform(click());
+        onView(withId(R.id.spinner)).perform(click());
 
+        //The following 3 lines of code were referenced from this Stack Overflow article:
+        //https://stackoverflow.com/questions/31420839/android-espresso-check-selected-spinner-text
+        onData(allOf(is(instanceOf(String.class)), is("Department"))).perform(click());
+        onView(withId(R.id.spinner)).check(matches(withSpinnerText(containsString("Department"))));
         Intents.release();
     }
 
