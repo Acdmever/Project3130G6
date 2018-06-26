@@ -154,4 +154,10 @@ public class Course {
     }
 
     //TODO add remove student in refactoring and/or for iteration 2.
+
+    public boolean checkForTimeConflict(Course newCourse){
+        boolean result = false;
+
+        return result;
+    }
 }

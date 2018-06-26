@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -58,6 +59,37 @@ public class CourseUnitTests {
         mockCourseDetails.put("description", mockCourse.getDescription());
 
         assertEquals(mockCourseDetails.get("description"), mockCourse.getCourseDetail().get("description"));
+    }
+
+    @Test
+    public void checkForTimeConflictTest(){
+        Lecture one = new Lecture(null,null,"13:05-13:55",
+                null,null);
+        Lecture two = new Lecture("13:35-14:25",null,null,null,
+                "13:35-14:25");
+        Lecture three = new Lecture("10:35-11:25","9:05-9:55",null,
+                null, null);
+        Lecture four = new Lecture(null,null,"8:35-9:55",null,"8:35-9:55");
+        Lecture five = new Lecture(null,"9:35-10:55",null,null,"9:35-10:55");
+
+        Course course1 = new Course();
+        course1.setLectures(three);
+        course1.setTutorials(two);
+
+        Course course2 = new Course();
+        course2.setLectures(four);
+        course2.setTutorials(one);
+
+        Course course3 = new Course();
+        course3.setTutorials(two);
+
+        Course course4 = new Course();
+        course4.setTutorials(five);
+
+        assertFalse(course1.checkForTimeConflict(course2));
+        assertTrue(course4.checkForTimeConflict(course1));
+        assertTrue(course4.checkForTimeConflict(course3));
+
     }
 
 }

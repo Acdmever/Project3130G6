@@ -54,4 +54,11 @@ public class Lecture {
     public void setFriday(String friday) {
         this.friday = friday;
     }
+
+    public boolean compare(Lecture lect){
+        boolean result = true;
+
+        return result;
+    }
+
 }
