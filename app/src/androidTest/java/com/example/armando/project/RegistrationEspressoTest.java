@@ -106,7 +106,7 @@ public class RegistrationEspressoTest {
         Espresso.onView(withId(R.id.Number)).check(matches(withText("1000")));
         Espresso.onView(withId(R.id.Semester)).check(matches(withText("fall")));
         Espresso.onView(withId(R.id.Year)).check(matches(withText("2012-2013")));
-        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("20/30")));
+        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("0/30")));
         Intents.release();
     }
 }
