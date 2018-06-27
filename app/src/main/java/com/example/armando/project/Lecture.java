@@ -1,5 +1,7 @@
 package com.example.armando.project;
 
+import java.time.LocalTime;
+
 public class Lecture {
     private String monday;
     private String tuesday;
@@ -53,6 +55,12 @@ public class Lecture {
 
     public void setFriday(String friday) {
         this.friday = friday;
+    }
+
+    public LocalTime[][] getStartStopTimes(){
+        LocalTime[][] times ={};
+
+        return times;
     }
 
     public boolean compare(Lecture lect){
