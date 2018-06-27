@@ -1,35 +1,22 @@
 package com.example.armando.project;
 
 public class Registration {
-    private Integer course;
-    private Integer student;
+    public Course course;
+    public Student student;
 
-    public Registration() {
-    }
-
-    public Registration(Integer course, Integer student) {
-        this.course = course;
-        this.student = student;
-    }
-
-    public Integer getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Integer course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 
-    public Integer getStudent() {
+    public Student getStudent() {
         return student;
     }
 
-    public void setStudent(Integer student) { this.student = student; }
-
-    public boolean equals(Registration reg) {
-        if(reg.getCourse() != course || reg.getStudent() != student) {
-            return false;
-        }
-            return true;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

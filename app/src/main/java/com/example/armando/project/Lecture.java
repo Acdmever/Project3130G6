@@ -1,29 +1,11 @@
 package com.example.armando.project;
 
 public class Lecture {
-    private String monday;
-    private String tuesday;
-    private String wednesday;
-    private String thursday;
-    private String friday;
-
-    public Lecture(){}
-
-    public Lecture(String monday, String tuesday, String wednesday, String thursday, String friday) {
-        this.monday = monday;
-        this.tuesday = tuesday;
-        this.wednesday = wednesday;
-        this.thursday = thursday;
-        this.friday = friday;
-    }
-
-    public String getMonday() {
-        return monday;
-    }
-
-    public void setMonday(String monday) {
-        this.monday = monday;
-    }
+    public String monday;
+    public String tuesday;
+    public String wednesday;
+    public String thursday;
+    public String friday;
 
     public String getTuesday() {
         return tuesday;
@@ -49,9 +31,40 @@ public class Lecture {
         this.thursday = thursday;
     }
 
-    public String getFriday() { return friday; }
+    public String getFriday() {
+        return friday;
+    }
 
     public void setFriday(String friday) {
         this.friday = friday;
+    }
+
+    public String getMonday() {
+
+        return monday;
+    }
+
+    public void setMonday(String monday) {
+        this.monday = monday;
+    }
+    public String getCourseOfDay(String day){
+        if (day.equalsIgnoreCase("monday"))
+            return this.monday;
+        if (day.equalsIgnoreCase("tuesday"))
+            return this.tuesday;
+        if (day.equalsIgnoreCase("wednesday"))
+            return this.wednesday;
+        if (day.equalsIgnoreCase("thursday"))
+            return this.thursday;
+        if (day.equalsIgnoreCase("friday"))
+            return this.friday;
+
+        return null;
+    }
+    public boolean hasLectureOn(String day){
+        if (!(this.getCourseOfDay(day)==null)){
+            return true;
+        }
+        return false;
     }
 }

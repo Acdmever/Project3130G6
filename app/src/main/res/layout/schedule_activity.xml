@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScheduleActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="106dp"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:stretchColumns="1"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="8:00" />
+
+            <TextView
+                android:id="@+id/row1"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="9:00" />
+
+            <TextView
+                android:id="@+id/row2"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:padding="3dip"
+                android:text="10:00" />
+
+            <TextView
+                android:id="@+id/row3"
+                android:padding="3dip" />
+
+            <TextView />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="11:00" />
+
+            <TextView
+                android:id="@+id/row4"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="12:00" />
+
+            <TextView
+                android:id="@+id/row5"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="13:00" />
+
+            <TextView
+                android:id="@+id/row6"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="14:00" />
+
+            <TextView
+                android:id="@+id/row7"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="15:00" />
+
+            <TextView
+                android:id="@+id/row8"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="16:00" />
+
+            <TextView
+                android:id="@+id/row9"
+                android:padding="3dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:padding="3dip"
+                android:text="17:00" />
+
+            <TextView
+                android:id="@+id/row10"
+                android:padding="3dip" />
+        </TableRow>
+    </TableLayout>
+
+    <Spinner
+        android:id="@+id/daySpinner"
+        android:layout_width="368dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="19dp"
+        android:entries="@array/days_array"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="11dp"
+        android:onClick="getDay"
+        android:text="Go"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daySpinner" />
+
+</android.support.constraint.ConstraintLayout>
