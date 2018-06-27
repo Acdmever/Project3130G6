@@ -45,11 +45,11 @@ public class Schedule {
         for (Course c:courses){
             String s;
             if (c.lectures.hasLectureOn(day)) {
-                s = c.lectures.getCourseOfDay(day) + "\n\t" + c.department + " " + c.num+ " Lecture";
+                s = c.lectures.getCourseOfDay(day) + "\n\t" + c.department + " " + c.num+ " Lecture\n";
                 schedule.add(s);
             }
             if (c.tutorials.hasLectureOn(day)){
-                s = c.tutorials.getCourseOfDay(day) + "\n\t" + c.department + " " + c.num+" Tutorial";
+                s = c.tutorials.getCourseOfDay(day) + "\n\t" + c.department + " " + c.num+" Tutorial\n";
                 schedule.add(s);
 
             }

@@ -54,7 +54,7 @@ public class ScheduleTest {
         for (String st:li){
             str+=st;
         }
-        assertEquals("10:05-11:25\nCSCI 1100 Lecture\n\n11:35-12:00\nCSCI 1101 Lecture\n\n",str);
+        assertEquals("10:05-11:25\n\tCSCI 1100 Lecture\n11:35-12:00\n\tCSCI 1101 Lecture\n",str);
     }
     @Test
     public void tuesday() {
@@ -63,7 +63,7 @@ public class ScheduleTest {
         for (String st:li){
             str+=st;
         }
-        assertEquals("10:05-11:25\nCSCI 2100 Lecture\n\n13:30-14:30\nCSCI 1100 Tutorial\n\n",str);
+        assertEquals("10:05-11:25\n\tCSCI 2100 Lecture\n13:30-14:30\n\tCSCI 1100 Tutorial\n",str);
     }
     @Test
     public void wednesday(){
@@ -72,7 +72,7 @@ public class ScheduleTest {
         for (String st:li){
             str+=st;
         }
-        assertEquals("10:05-11:25\nCSCI 1100 Lecture\n\n11:35-12:00\nCSCI 1101 Lecture\n\n",str);
+        assertEquals("10:05-11:25\n\tCSCI 1100 Lecture\n11:35-12:00\n\tCSCI 1101 Lecture\n",str);
     }
     @Test
     public void thursday() {
@@ -81,7 +81,7 @@ public class ScheduleTest {
         for (String st:li){
             str+=st;
         }
-        assertEquals("10:05-11:25\nCSCI 2100 Lecture\n\n",str);
+        assertEquals("10:05-11:25\n\tCSCI 2100 Lecture\n",str);
     }
     @Test
     public void friday(){
