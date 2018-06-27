@@ -1,5 +1,6 @@
 package com.example.armando.project;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -10,10 +11,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Database {
-    //private final String FB_URL="https://project3130g6.firebaseio.com";
-    public final  FirebaseDatabase database=FirebaseDatabase.getInstance();
-    //private final Student student=new Student();
-    public DatabaseReference ref=database.getReference("");
+    private final FirebaseDatabase database=FirebaseDatabase.getInstance();
+    private Student student=new Student();
+    //public Task<Void>fetchTask;
 
 
     public DatabaseReference startReference(String path){
@@ -22,21 +22,13 @@ public class Database {
         //Check if path exists
         return ref;
     }
-    public void getStudent(final String id, final Student student){
-        //final Student student=new Student();
-        //ref=startReference("Student/0/username");
-        DatabaseReference ref=database.getReference("Student").child(id);
+    public Student getStudent(String id){
+        //fetchTask= FirebaseRemoteConfig.getInstance().fetch();
+        DatabaseReference ref=startReference("Students").child("id").child("username");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Student s=dataSnapshot.getValue(Student.class);
-                if (s!=null)
-                Student.transfer(s,student);
-                //student.setUsername(s.toString());
-                //student.setFirstName(s.getFirstName());
-                //student.setLastName(s.getLastName());
-                //student.setPassword(s.getPassword());
+                student.username=dataSnapshot.getValue(String.class).toString();
 
             }
 
@@ -49,7 +41,7 @@ public class Database {
         }
 
         );
-        //return student;
+        return this.student;
 
     }
 }

@@ -3,18 +3,16 @@ package com.example.armando.project;
 public class Course {
     public String department;
     public String instructor;
-    //public String lectures;
     public String semester;
     public String name;
-    // public String tutorials;
     public String year;
-    public Integer num;
-    public Lecture lectures;
-    public Lecture tutorials;
+    public String num;
+    public Lecture lectures=new Lecture();
+    public Lecture tutorials=new Lecture();
 
     public Course() { }
 
-    public Course(String department, String instructor, String semester, String name, Integer num, String year){
+    public Course(String department, String instructor, String semester, String name, String num, String year){
         this.department = department;
         this.instructor = instructor;
         this.semester = semester;
@@ -55,11 +53,11 @@ public class Course {
         this.year = year;
     }
 
-    public Integer getNum() {
+    public String getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(String num) {
         this.num = num;
     }
 

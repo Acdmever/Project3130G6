@@ -1,12 +1,13 @@
 package com.example.armando.project;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Schedule {
     public Student student;
     public String semester;
     public String year;
-    public ArrayList<Course> courses;
+    public ArrayList<Course> courses=new ArrayList<Course>();
 
     public Student getStudent() {
         return student;
@@ -42,8 +43,20 @@ public class Schedule {
     public ArrayList<String> getSchedule(String day){
         ArrayList<String> schedule=new ArrayList<String>();
         for (Course c:courses){
-            
+            String s;
+            if (c.lectures.hasLectureOn(day)) {
+                s = c.lectures.getCourseOfDay(day) + "\n\t" + c.department + " " + c.num+ " Lecture";
+                schedule.add(s);
+            }
+            if (c.tutorials.hasLectureOn(day)){
+                s = c.tutorials.getCourseOfDay(day) + "\n\t" + c.department + " " + c.num+" Tutorial";
+                schedule.add(s);
+
+            }
+
+
         }
+        Collections.sort(schedule);
         return schedule;
     }
 }

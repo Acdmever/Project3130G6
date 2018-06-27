@@ -47,4 +47,24 @@ public class Lecture {
     public void setMonday(String monday) {
         this.monday = monday;
     }
+    public String getCourseOfDay(String day){
+        if (day.equalsIgnoreCase("Monday"))
+            return this.monday;
+        if (day.equalsIgnoreCase("Tuesday"))
+            return this.tuesday;
+        if (day.equalsIgnoreCase("Wednesday"))
+            return this.wednesday;
+        if (day.equalsIgnoreCase("Thursday"))
+            return this.thursday;
+        if (day.equalsIgnoreCase("Friday"))
+            return this.friday;
+
+        return null;
+    }
+    public boolean hasLectureOn(String day){
+        if (!(this.getCourseOfDay(day)==null)){
+            return true;
+        }
+        return false;
+    }
 }

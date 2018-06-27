@@ -41,25 +41,17 @@ import java.io.InputStream;
 
 public class Student {
 
-    public String firstName;
-    public String lastName;
-    //private String id;
-    public String password;
+    private String firstName;
+    private String lastName;
+    //private String ID;
+    private String password;
     public String username;
-    public Student(){}
-    public Student(String firstName , String lastName, String password, String username){
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.password=password;
-        this.username=username;
-    }
+
 
     public void setFirstName(String fn) {
-
         this.firstName=fn;
     }
     public void setLastName(String ln) {
-
         this.lastName=ln;
     }
     public void setPassword(String pw) {
@@ -91,12 +83,5 @@ public class Student {
         return this.ID;
 
     }*/
-    public static void transfer(Student s1, Student s2){
-        s2.setLastName(s1.getLastName());
-        s2.setFirstName(s1.getFirstName());
-        s2.setUsername(s1.getUsername());
-        s2.setPassword(s1.getPassword());
-
-    }
 
 }
