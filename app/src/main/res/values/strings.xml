@@ -29,4 +29,18 @@
         <item>Required Courses</item>
     </string-array>
 
+    <!-- Strings for Drop Down to filter Departments -->
+    <string-array name="department_array">
+        <item>Sociology</item>
+        <item>Spanish</item>
+    </string-array>
+
+    <!-- Strings for Drop Down to filter Course Levels -->
+    <string-array name="courseNumber_array">
+        <item>1000s</item>
+        <item>2000s</item>
+        <item>3000s</item>
+        <item>4000s</item>
+    </string-array>
+
 </resources>
