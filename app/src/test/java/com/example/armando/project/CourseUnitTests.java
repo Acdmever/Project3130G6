@@ -56,6 +56,7 @@ public class CourseUnitTests {
         mockCourseDetails.put("semester", mockCourse.getSemester());
         mockCourseDetails.put("year", mockCourse.getYear());
         mockCourseDetails.put("description", mockCourse.getDescription());
+        mockCourseDetails.put("limit", mockCourse.getLimit()+"");
 
         assertEquals(mockCourseDetails.get("description"), mockCourse.getCourseDetail().get("description"));
     }
