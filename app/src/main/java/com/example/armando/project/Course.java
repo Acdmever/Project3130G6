@@ -3,6 +3,13 @@ package com.example.armando.project;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Represents a course and its related information.
+ *
+ * @author Matt
+ * @author Dahn
+ * @author Nic
+ */
 public class Course {
     private String department;
     private String instructor;
@@ -17,17 +24,43 @@ public class Course {
     private String key;
     private ArrayList<String> students = new ArrayList();
 
-
+    /**
+     * Get the database key for this course
+     *
+     * @return database key
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * Set the database key for this course
+     * @param key
+     */
     public void setKey(String key) {
         this.key = key;
     }
 
+    /**
+     * Empty constructor required by firebase
+     */
     public Course() { }
 
+    /**
+     * Create a course defining all fields
+     *
+     * @param department
+     * @param instructor
+     * @param semester
+     * @param name
+     * @param key
+     * @param num
+     * @param year
+     * @param description
+     * @param lectures
+     * @param tutorials
+     * @param limit
+     */
     public Course(String department, String instructor, String semester, String name, String key,
                   Long num, String year, String description, Lecture lectures, Lecture tutorials, int limit){
         this.key = key;
@@ -43,67 +76,144 @@ public class Course {
         this.limit = limit;
     }
 
+    /**
+     * Get the tutorials for this course
+     *
+     * @return tutorials
+     */
     public Lecture getTutorials() {
         return tutorials;
     }
 
+    /**
+     * Set the tutorials for this course
+     *
+     * @param tutorials
+     */
     public void setTutorials(Lecture tutorials) {
         this.tutorials = tutorials;
     }
 
+    /**
+     * Get the lectures for this course
+     *
+     * @return lectures
+     */
     public Lecture getLectures() {
         return lectures;
     }
 
+    /**
+     * Set the lectures for this course
+     * @param lectures
+     */
     public void setLectures(Lecture lectures) {
         this.lectures = lectures;
     }
+
+    /**
+     * Get the instructor for this course
+     * @return instructor
+     */
     public String getInstructor() {
         return instructor;
     }
 
+    /**
+     * Set the instructor
+     * @param instructor
+     */
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
 
+    /**
+     * Get the semester this course takes place in
+     * @return semester
+     */
     public String getSemester() {
         return semester;
     }
 
+    /**
+     * Set the semester that the course takes place in
+     * @param semester
+     */
     public void setSemester(String semester) {
         this.semester = semester;
     }
 
+    /**
+     * Get the course name
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the course name
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the year that the course takes place in
+     * @return year
+     */
     public String getYear() {
         return year;
     }
 
+    /**
+     * Set the year that the course takes place in
+     * @param year
+     */
     public void setYear(String year) {
         this.year = year;
     }
 
+    /**
+     * Get the course description
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Set the course description
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Get the course number
+     * @return course_number
+     */
     public Long getNum() {
         return num;
     }
 
-    public int getLimit() { return limit; }
-    public void setLimit() { this.limit = limit; }
+    /**
+     * Get the maximum amount of students that can enroll in this course
+     * @return
+     */
+    public int getLimit() {
+        return limit;
+    }
+
+    /**
+     * Set the maximum amount of students that can enroll in this course
+     * @return student_limit
+     */
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
     public void setNum(Long num) {
         this.num = num;
