@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+/**
+ * ViewCourseDetail displays the info associated with a course
+ */
 public class ViewCourseDetail extends AppCompatActivity {
 
     public static TextView txtDepartment;
