@@ -7,25 +7,33 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class ScheduleActivity extends AppCompatActivity {
     //public Schedule schedule=new Schedule();
     public Student student = new Student();
+    public final String id="0";
+    /*
     public Course c0=new Course("CSCI", "Johnny F", "Winter","Intro","1100", "2018");
     public Course c1=new Course("CSCI", "Johnny D", "Winter","Intro","1101", "2018");
-    public Course c2=new Course("CSCI", "Johnny T", "Winter","Intro","2100", "2018");
-    public Schedule s=new Schedule();
+    public Course c2=new Course("CSCI", "Johnny T", "Winter","Intro","2100", "2018");*/
+    public Schedule s;
+    public DatabaseReference ref;
+    public FirebaseDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_activity);
-
-        Database db = new Database();
-
-        Lecture l0= new Lecture();
+        FirebaseApp.initializeApp(this);
+       // Database db = new Database();
+        db=FirebaseDatabase.getInstance();
+        /*Lecture l0= new Lecture();
         l0.setMonday("10:05-11:25");
         l0.setWednesday("10:05-11:25");
         Lecture t0=new Lecture();
@@ -43,7 +51,8 @@ public class ScheduleActivity extends AppCompatActivity {
         c2.lectures=l2;
         s.courses.add(c0);
         s.courses.add(c1);
-        s.courses.add(c2);
+        s.courses.add(c2);*/
+        s=makeSchedule(id);
 
         //Schedule schedule = db.getSchedule("ID");
 
@@ -87,5 +96,10 @@ public class ScheduleActivity extends AppCompatActivity {
             rows[num-8]+=s;
         }
         return rows;
+    }
+    public Schedule makeSchedule(String id){
+        Schedule s=new Schedule();
+        //TODO Go through firebase to get courses and add to s
+        return s;
     }
 }
