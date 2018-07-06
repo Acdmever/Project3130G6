@@ -78,7 +78,6 @@ public class Course {
 
     /**
      * Get the tutorials for this course
-     *
      * @return tutorials
      */
     public Lecture getTutorials() {
@@ -87,7 +86,6 @@ public class Course {
 
     /**
      * Set the tutorials for this course
-     *
      * @param tutorials
      */
     public void setTutorials(Lecture tutorials) {
@@ -96,7 +94,6 @@ public class Course {
 
     /**
      * Get the lectures for this course
-     *
      * @return lectures
      */
     public Lecture getLectures() {
@@ -201,7 +198,7 @@ public class Course {
 
     /**
      * Get the maximum amount of students that can enroll in this course
-     * @return
+     * @return student_limit
      */
     public int getLimit() {
         return limit;
@@ -215,34 +212,66 @@ public class Course {
         this.limit = limit;
     }
 
+    /**
+     * Set the course number
+     * @param num
+     */
     public void setNum(Long num) {
         this.num = num;
     }
 
+    /**
+     * Get the course's department
+     * @return department
+     */
     public String getDepartment() {
         return department;
     }
 
+    /**
+     * Set the course's department
+     * @param department
+     */
     public void setDepartment(String department) {
         this.department = department;
     }
 
+    /**
+     * Get the list of students that are in the course
+     * @return students
+     */
     public ArrayList<String> getStudents() {
         return students;
     }
 
+    /**
+     * Set the list of students that are in the course
+     * @param students
+     */
     public void setStudents(ArrayList<String> students) {
         this.students = students;
     }
 
+    /**
+     * Get a string that describes the course by ddepartment, number, and name
+     * @return headerString
+     */
     public String makeHeaderString(){
        return getDepartment()+" "+getNum()+": "+getName();
     }
 
+    /**
+     * Get a string that describes the course by semester and year
+     * @return footerString
+     */
     public String makeFooterString(){
         return getSemester()+" "+getYear();
     }
 
+    /**
+     * Get all the course details in a HashMap
+     * @return courseDetails
+     */
     public HashMap<String, String> getCourseDetail() {
         HashMap<String, String> courseDetails = new HashMap<>();
         courseDetails.put("department", this.getDepartment());
@@ -258,12 +287,22 @@ public class Course {
         return courseDetails;
     }
 
+    /**
+     * Add a student's key to list of students that are in the course
+     * @param studentKey
+     */
     private void addStudentToList(String studentKey){
         students.add(studentKey);
     }
 
-    //This method should be used whenever a user registers for a course, it ensures the course's
-    //user list is updated and a registration object created to match.
+    /**
+     * Register a student for the course
+     *
+     * This method ensures the course's user list is updated and a registration
+     * object created to match.
+     *
+     * @return reg
+     */
     public Registration addStudent(String studentKey){
         addStudentToList(studentKey);
         Registration reg =  new Registration(Integer.parseInt(key), Integer.parseInt(studentKey));
