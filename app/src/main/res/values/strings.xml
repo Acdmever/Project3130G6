@@ -22,6 +22,7 @@
 
     <!-- Strings for Drop Down to filter courses -->
     <string-array name="sorting_array">
+        <item>" "</item>
         <item>Semester</item>
         <item>Course Number</item>
         <item>Course Level</item>

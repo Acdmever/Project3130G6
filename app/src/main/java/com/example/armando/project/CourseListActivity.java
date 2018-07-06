@@ -1,11 +1,16 @@
 package com.example.armando.project;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +28,12 @@ public class CourseListActivity extends AppCompatActivity {
 
     //Hard coded until login functionality is ironed out.
     private final String studentId = "5";
+    private String selectedItem;
+
+    private FirebaseDatabase db;
+    private DatabaseReference ref;
+
+    private Spinner spinner2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +52,47 @@ public class CourseListActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        final FirebaseDatabase db=FirebaseDatabase.getInstance();
-        final DatabaseReference ref = db.getReference("Courses");
+        db=FirebaseDatabase.getInstance();
+        ref = db.getReference("Courses");
+        firebaseFunction();
+
+        //Second Spinner
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+
+
+        //Implemetning Course Filter
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = parent.getItemAtPosition(position).toString();
+                System.out.println("Spinner value: " + selectedItem);
+
+                if (selectedItem.equals("Department")){
+                    ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
+                        R.array.department_array, android.R.layout.simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                     spinner2.setAdapter(adapter2);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        final Button button = findViewById(R.id.filterButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Spinner value AGAIN: " + selectedItem);
+                String test = "I'm here in onClick.";
+                firebaseFunction();
+            }
+        });
+
+    }
+    public void firebaseFunction() {
+        System.out.println("I'm here in Firebase Func.");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -52,7 +102,15 @@ public class CourseListActivity extends AppCompatActivity {
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
-                    input.add(course);
+                    if (selectedItem!=null && selectedItem.equals("Department")) {
+                        System.out.println("IN DEPARTMENT LOOP");
+                        if (course.getDepartment().equals("Spanish")) {
+                            input.add(course);
+                        }
+                    } else {
+                        input.add(course);
+                    }
+
                 }
                 listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
