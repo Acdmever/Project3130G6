@@ -60,7 +60,7 @@ public class CourseListActivity extends AppCompatActivity {
         spinner2 = (Spinner) findViewById(R.id.spinner2);
 
 
-        //Implemetning Course Filter. Implementing onItemSelectedListener() interface.
+        //Implementing Course Filter. Implementing onItemSelectedListener() interface.
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -75,6 +75,8 @@ public class CourseListActivity extends AppCompatActivity {
                             R.array.department_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
+                } else {
+                    spinner2.setAdapter(null);
                 }
             }
 
@@ -88,7 +90,8 @@ public class CourseListActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.filterButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                selectedItem2 = spinner2.getSelectedItem().toString();
+                if (spinner2.getSelectedItem() != null)
+                    selectedItem2 = spinner2.getSelectedItem().toString();
                 firebaseFunction();
             }
         });
@@ -110,11 +113,11 @@ public class CourseListActivity extends AppCompatActivity {
                     //Filtering
                     if (selectedItem!=null && selectedItem.equals("Department")) {
                         System.out.println("IN DEPARTMENT LOOP");
-                        if(selectedItem2.equals("Spanish")){
+                        if(selectedItem2 != null && selectedItem2.equals("Spanish")){
                             if (course.getDepartment().equals("Spanish")) {
                                 input.add(course);
                             }
-                        }else if (selectedItem2.equals("Sociology")){
+                        }else if (selectedItem2 != null && selectedItem2.equals("Sociology")){
                             if (course.getDepartment().equals("Sociology")){
                                 input.add(course);
                             }
