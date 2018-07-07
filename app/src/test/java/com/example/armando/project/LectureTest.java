@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class LectureTest {
 
@@ -30,12 +31,12 @@ public class LectureTest {
         Lecture one = new Lecture("13:05-13:55",null,"13:05-13:55",
                 null,"13:05-13:55");
         String[] monday = one.getMonday().split("-");
-        String[] tuesday = one.getTuesday().split("-");
+        String[] tuesday = null;
         String[] wednesday = one.getWednesday().split("-");
-        String[] thursday = one.getThursday().split("-");
+        String[] thursday = null;
         String[] friday = one.getFriday().split("-");
 
-        LocalTime[][] auto = one.getStartStopTimes();
+        String[][] auto = one.getStartStopTimes();
 
         assertArrayEquals(monday, auto[0]);
         assertArrayEquals(tuesday, auto[1]);
