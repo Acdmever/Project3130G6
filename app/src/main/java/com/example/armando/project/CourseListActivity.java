@@ -60,13 +60,15 @@ public class CourseListActivity extends AppCompatActivity {
         spinner2 = (Spinner) findViewById(R.id.spinner2);
 
 
-        //Implemetning Course Filter
+        //Implemetning Course Filter. Implementing onItemSelectedListener() interface.
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = parent.getItemAtPosition(position).toString();
                 System.out.println("Spinner value: " + selectedItem);
 
+                //If the first spinner is set to Department, then populate the second spinner
+                //with the list of departments
                 if (selectedItem.equals("Department")){
                     spinner2.setOnItemSelectedListener(new CourseFilter());
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
@@ -82,17 +84,18 @@ public class CourseListActivity extends AppCompatActivity {
             }
         });
 
+        //Filter button. Filtering will not happen until the button is clicked on.
         final Button button = findViewById(R.id.filterButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 selectedItem2 = spinner2.getSelectedItem().toString();
-                System.out.println("Spinner value AGAIN: " + selectedItem);
-                System.out.println("Spinner 2 VALUE: " + selectedItem2);
                 firebaseFunction();
             }
         });
 
     }
+
+    //Function that gets the lists of courses from firebase. The filtering queries happen in here.
     public void firebaseFunction() {
         System.out.println("I'm here in Firebase Func.");
         ref.addValueEventListener(new ValueEventListener() {
@@ -104,6 +107,7 @@ public class CourseListActivity extends AppCompatActivity {
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
+                    //Filtering
                     if (selectedItem!=null && selectedItem.equals("Department")) {
                         System.out.println("IN DEPARTMENT LOOP");
                         if(selectedItem2.equals("Spanish")){
