@@ -109,7 +109,11 @@ public class RegistrationEspressoTest {
 
         //Clicks on the snackbar button to register despite the time conflict
         onView(allOf(withId(android.support.design.R.id.snackbar_action))).perform(click());
+        Thread.sleep(500);
         onView(withTagValue(is((Object) tag))).check(matches(isChecked()));
+
+        //Drop course to reset for next test
+        onView(withTagValue(is((Object) tag))).perform(click());
 
         Intents.release();
     }

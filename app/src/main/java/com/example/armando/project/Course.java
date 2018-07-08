@@ -145,6 +145,10 @@ public class Course {
         students.add(studentKey);
     }
 
+    private void removeStudentFromList(String studentKey){
+        students.remove(studentKey);
+    }
+
     //This method should be used whenever a user registers for a course, it ensures the course's
     //user list is updated and a registration object created to match.
     public Registration addStudent(String studentKey){
@@ -153,8 +157,10 @@ public class Course {
         return reg;
     }
 
-    //TODO add remove student in refactoring and/or for iteration 2.
-
+    public ArrayList<String> removeStudent(String studentKey){
+        removeStudentFromList(studentKey);
+        return students;
+    }
 
     //true = conflict
     public boolean checkForTimeConflict(Course newCourse){
