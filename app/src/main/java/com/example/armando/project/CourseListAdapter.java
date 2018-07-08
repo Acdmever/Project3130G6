@@ -30,6 +30,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     private String studentId;
     private final FirebaseDatabase db;
     final View mainView;
+    private List<Course> registered = new ArrayList();
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtHeader;
@@ -100,18 +101,35 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         holder.layout.setTag(values.get(position).getKey()+"item");
         if(values.get(position).getStudents().contains(studentId)){
             holder.courseToggle.setChecked(true);
+            registered.add(values.get(position));
         }
 
         //Toggle button listener to handle when the user registrations or drops for a course
         holder.courseToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String key = values.get(position).getKey()+"-"+studentId;
+            public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
+                final String key = values.get(position).getKey()+"-"+studentId;
                 if (isChecked) {
+                   for (Course reg: registered) {
+                        if(reg.checkForTimeConflict(values.get(position))){
+                           buttonView.setChecked(false);
+
+                            Snackbar.make(mainView, "Time conflict with current courses.", Snackbar.LENGTH_LONG)
+                                    .setAction("Register", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                        }
+                                    })
+                                    .show();
+                            return;
+                        }
+                    }
+
                    Registration  reg = values.get(position).addStudent(studentId);
                    db.getReference("Registrations").child(key).setValue(reg);
                    db.getReference("Courses").child(values.get(position).getKey())
                            .child("students").setValue(values.get(position).getStudents());
-
+                    registered.add(values.get(position));
                    Snackbar.make(mainView, "Registered for course", Snackbar.LENGTH_LONG)
                            .show();
 
@@ -123,7 +141,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                     db.getReference("Registrations").child(key).removeValue();
                     db.getReference("Courses").child(values.get(position).getKey())
                             .child("students").setValue(newList);
-
+                    registered.remove(values.get(position));
                     Snackbar.make(mainView, "Dropped from course", Snackbar.LENGTH_LONG)
                             .show();
                 }

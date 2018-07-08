@@ -98,15 +98,20 @@ public class RegistrationEspressoTest {
 
         String tag = "1reg";
         onView(withTagValue(is((Object) tag))).perform(click());
+        Thread.sleep(500);
 
         //Will be the message when time conflict happens.
         onView(allOf(withId(android.support.design.R.id.snackbar_text)))
                 .check(matches(withText("Time conflict with current courses.")));
+        onView(withTagValue(is((Object) tag))).check(matches(isNotChecked()));
 
-        Thread.sleep(5000);
+        Thread.sleep(500);
+
+        //Clicks on the snackbar button to register despite the time conflict
+        onView(allOf(withId(android.support.design.R.id.snackbar_action))).perform(click());
+        onView(withTagValue(is((Object) tag))).check(matches(isChecked()));
 
         Intents.release();
-
     }
 
     @Test
