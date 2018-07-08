@@ -65,7 +65,6 @@ public class CourseListActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = parent.getItemAtPosition(position).toString();
-                System.out.println("Spinner value: " + selectedItem);
 
                 //If the first spinner is set to Department, then populate the second spinner
                 //with the list of departments
@@ -100,7 +99,6 @@ public class CourseListActivity extends AppCompatActivity {
 
     //Function that gets the lists of courses from firebase. The filtering queries happen in here.
     public void firebaseFunction() {
-        System.out.println("I'm here in Firebase Func.");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -112,7 +110,6 @@ public class CourseListActivity extends AppCompatActivity {
                     course.setKey(snap.getKey());
                     //Filtering
                     if (selectedItem!=null && selectedItem.equals("Department")) {
-                        System.out.println("IN DEPARTMENT LOOP");
                         if(selectedItem2 != null && selectedItem2.equals("Spanish")){
                             if (course.getDepartment().equals("Spanish")) {
                                 input.add(course);
