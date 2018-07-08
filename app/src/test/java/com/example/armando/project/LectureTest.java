@@ -19,9 +19,13 @@ public class LectureTest {
                 "13:35-14:25");
         Lecture three = new Lecture("10:35-11:25","9:05-9:55",null,
                 null, null);
+        Lecture four = new Lecture("12:35-14:25",null,null,
+                null,null);
 
         assertTrue(one.compare(two));
         assertTrue(two.compare(one));
+        assertTrue(one.compare(four));
+        assertTrue(four.compare(one));
         assertFalse(three.compare(one));
         assertFalse(one.compare(three));
     }
@@ -30,11 +34,11 @@ public class LectureTest {
     public void timesTest(){
         Lecture one = new Lecture("13:05-13:55",null,"13:05-13:55",
                 null,"13:05-13:55");
-        String[] monday = one.getMonday().split("-");
+        String[] monday = {"13:05", "13:55"};
         String[] tuesday = null;
-        String[] wednesday = one.getWednesday().split("-");
+        String[] wednesday = {"13:05", "13:55"};
         String[] thursday = null;
-        String[] friday = one.getFriday().split("-");
+        String[] friday = {"13:05", "13:55"};
 
         String[][] auto = one.getStartStopTimes();
 

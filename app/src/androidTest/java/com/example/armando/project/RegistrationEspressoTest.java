@@ -82,6 +82,34 @@ public class RegistrationEspressoTest {
     }
 
     @Test
+    public void timeConflictTest() throws InterruptedException {
+        Intents.init();
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.coursesButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+
+        String tag = "1reg";
+        onView(withTagValue(is((Object) tag))).perform(click());
+
+        //Will be the message when time conflict happens.
+        onView(allOf(withId(android.support.design.R.id.snackbar_text)))
+                .check(matches(withText("Time conflict with current courses.")));
+
+        Thread.sleep(5000);
+
+        Intents.release();
+
+    }
+
+    @Test
     public void showCourseDetails() throws InterruptedException {
         Intents.init();
         Espresso.onView(withId(R.id.username))

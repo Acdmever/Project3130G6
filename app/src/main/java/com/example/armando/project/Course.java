@@ -155,9 +155,32 @@ public class Course {
 
     //TODO add remove student in refactoring and/or for iteration 2.
 
+
+    //true = conflict
     public boolean checkForTimeConflict(Course newCourse){
         boolean result = false;
+        Lecture newLectures = newCourse.getLectures();
+        Lecture newTutorials = newCourse.getTutorials();
 
+        if(newLectures != null){
+            if((this.lectures != null) && this.lectures.compare(newLectures)){
+                return true;
+            }
+
+            if((this.tutorials != null) && this.tutorials.compare(newLectures)){
+                return true;
+            }
+        }
+
+        if(newTutorials != null){
+            if((this.lectures != null) && this.lectures.compare(newTutorials)){
+                return true;
+            }
+
+            if((this.tutorials != null) && this.tutorials.compare(newTutorials)){
+                return true;
+            }
+        }
         return result;
     }
 }

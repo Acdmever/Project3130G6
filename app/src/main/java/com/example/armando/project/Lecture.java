@@ -107,18 +107,23 @@ public class Lecture {
     public boolean compare(Lecture lect){
        String[][] thisStartStop = this.getStartStopTimes();
        String[][] lectStartStop = lect.getStartStopTimes();
-       boolean result = true;
+       boolean result = false;
 
        for(int i = 0; i < 5; i++){
+
            if(thisStartStop[i] == null || lectStartStop[i] == null){
                continue;
            }
 
-           if(thisStartStop[i][0].compareTo(lectStartStop[i][1]) >= 0){
-               return false;
-           }
-           else if(thisStartStop[i][1].compareTo(lectStartStop[i][0]) <= 0) {
-               return false;
+           if((thisStartStop[i][0].compareTo(lectStartStop[i][0]) <= 0)
+                   && (thisStartStop[i][1].compareTo(lectStartStop[i][0]) >= 0)){
+               return true;
+           } else if((thisStartStop[i][0].compareTo(lectStartStop[i][1]) <= 0)
+                   && (thisStartStop[i][1].compareTo(lectStartStop[i][1]) >= 0)){
+               return true;
+           } else if((thisStartStop[i][0].compareTo(lectStartStop[i][0]) >= 0)
+                   && (thisStartStop[i][1].compareTo(lectStartStop[i][1]) <= 0)){
+               return true;
            }
        }
        return result;
