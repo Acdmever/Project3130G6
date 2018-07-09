@@ -324,6 +324,10 @@ public class Course {
         Lecture newLectures = newCourse.getLectures();
         Lecture newTutorials = newCourse.getTutorials();
 
+        if(!this.year.equals(newCourse.getYear()) || !this.semester.equals(newCourse.getSemester())){
+            return result;
+        }
+
         if(newLectures != null){
             if((this.lectures != null) && this.lectures.compare(newLectures)){
                 return true;
