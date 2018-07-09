@@ -128,4 +128,27 @@ public class Lecture {
        }
        return result;
     }
+
+    //Armando
+    public String getCourseOfDay(String day){
+        if (day.equalsIgnoreCase("monday"))
+            return this.monday;
+        if (day.equalsIgnoreCase("tuesday"))
+            return this.tuesday;
+        if (day.equalsIgnoreCase("wednesday"))
+            return this.wednesday;
+        if (day.equalsIgnoreCase("thursday"))
+            return this.thursday;
+        if (day.equalsIgnoreCase("friday"))
+            return this.friday;
+
+        return null;
+    }
+    //Armando
+    public boolean hasLectureOn(String day){
+        if (!(this.getCourseOfDay(day)==null)){
+            return true;
+        }
+        return false;
+    }
 }
