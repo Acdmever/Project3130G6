@@ -1,31 +1,55 @@
 package com.example.armando.project;
-
+/**
+ * This creates a registration with a student and a course in it
+ * @author Matthew MacMullin
+ * @author Jessica Irving
+ */
 public class Registration {
     private Integer course;
     private Integer student;
-
+    /**
+     * Empty constructor for student
+     */
     public Registration() {
     }
-
+    /**
+     * This constructors a registration with a course and student parameter
+     * @param course is the number of a course registered in
+     * @param student
+     */
     public Registration(Integer course, Integer student) {
         this.course = course;
         this.student = student;
     }
-
+    /**
+     * gets the course number
+     * @return returns the course number
+     */
     public Integer getCourse() {
         return course;
     }
-
+    /**
+     * set the course number
+     */
     public void setCourse(Integer course) {
         this.course = course;
     }
-
+    /**
+     * this returns the student number
+     * @return returns the student number
+     */
     public Integer getStudent() {
         return student;
     }
-
+    /**
+     * set this student student number
+     */
     public void setStudent(Integer student) { this.student = student; }
-
+    /**
+     * this method check if to registration objects are equal
+     * @param reg is a registration
+     * @return true if the registration is equal to another registration false otherwise
+     */
     public boolean equals(Registration reg) {
         if(reg.getCourse() != course || reg.getStudent() != student) {
             return false;

@@ -16,9 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 /**
- * A login screen that offers login via username/password.
+ * * A login screen that offers login via username/password.
+ * @author Joel Fong
  */
 public class LoginActivity extends AppCompatActivity {
 

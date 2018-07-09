@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,12 +14,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 /**
- *
  * ScheduleActivity.java
  * Fetches courses from Firebase and makes them into a Schedule
  * Then displays the student's schedule
  *@author Luis Armando Cordero
- *
  **/
 
 public class ScheduleActivity extends AppCompatActivity {
