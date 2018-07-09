@@ -21,6 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Displays courses.
+ * Allows user to filter courses by department
+ * @author Jessica
+ * @author Matt
+ */
 public class CourseListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter listAdapter;
@@ -100,6 +106,14 @@ public class CourseListActivity extends AppCompatActivity {
     //Function that gets the lists of courses from firebase. The filtering queries happen in here.
     public void firebaseFunction() {
         ref.addValueEventListener(new ValueEventListener() {
+            /**
+             * Returns courses to be displayed.
+             *
+             * Grabs all courses from the database, and filters them
+             * according to the user's input
+             *
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Course> input = new ArrayList();
@@ -128,8 +142,12 @@ public class CourseListActivity extends AppCompatActivity {
                 recyclerView.setAdapter(listAdapter);
             }
 
+            /**
+             * Does nothing, needed for database listener errors
+             * @param error
+             */
             @Override
-            public void onCancelled(DatabaseError error) { } //needed for the listener
+            public void onCancelled(DatabaseError error) { }
         });
     }
 }

@@ -25,6 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
  *   Availability: http://www.vogella.com/tutorials/AndroidRecyclerView/article.html
  ***********************************************************************************/
 
+/**
+ * Used to make the course-list play nice with the database
+ * @author Matt
+ */
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private List<Course> values;
     private String studentId;
@@ -32,6 +36,9 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     final View mainView;
     private List<Course> registered = new ArrayList();
 
+    /**
+     * Each course in CourseListActivity is displayed through a ViewHolder
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtHeader;
         public TextView txtFooter;
@@ -49,11 +56,20 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         }
     }
 
+    /**
+     * Add a course to the list in CourseListActivity
+     * @param position Where the course shoulf be added in the list
+     * @param item
+     */
     public void add(int position, Course item) {
         values.add(position, item);
         notifyItemInserted(position);
     }
 
+    /**
+     * Remove a course from the list in CourseListActivity
+     * @param position Where the course is in the list
+     */
     public void remove(int position) {
         values.remove(position);
         notifyItemRemoved(position);
@@ -79,7 +95,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * Replace the contents of a view.
+     * Invoked by the layout manager.
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final String header = values.get(position).makeHeaderString();
@@ -104,8 +123,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
             registered.add(values.get(position));
         }
 
-        //Toggle button listener to handle when the user registrations or drops for a course
         holder.courseToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            /**
+             * Reacts to student registering or dropping a course in CourseListActivity.
+             * This is done through a toggle button for each course.
+             * @param buttonView
+             * @param isChecked
+             */
             public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
                 final String key = values.get(position).getKey()+"-"+studentId;
                 if (isChecked) {
@@ -131,7 +155,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    //
+
+    /**
+     * Returns the number of courses being displayed.
+     * Invoked by the layout manager.
+     * @return course_list_size
+     */
     @Override
     public int getItemCount() {
         return values.size();
