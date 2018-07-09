@@ -1,5 +1,7 @@
 package com.example.armando.project;
 
+import java.time.LocalTime;
+
 public class Lecture {
     private String monday;
     private String tuesday;
@@ -53,5 +55,77 @@ public class Lecture {
 
     public void setFriday(String friday) {
         this.friday = friday;
+    }
+
+    public String[][] getStartStopTimes(){
+        String[] monday;
+        String[] tuesday;
+        String[] wednesday;
+        String[] thursday;
+        String[] friday;
+
+       if(this.monday != null){
+           monday = getMonday().split("-");
+       } else {
+           monday = null;
+       }
+
+       if(this.tuesday != null){
+           tuesday = getTuesday().split("-");
+       } else {
+           tuesday = null;
+       }
+
+       if(this.wednesday != null){
+           wednesday = getWednesday().split("-");
+       } else {
+           wednesday = null;
+       }
+
+       if(this.thursday != null){
+           thursday = getThursday().split("-");
+       } else {
+           thursday = null;
+       }
+
+       if(this.friday != null){
+           friday = getFriday().split("-");
+       } else {
+           friday = null;
+       }
+
+       String[][] times = new String[5][2];
+       times[0] = monday;
+       times[1] = tuesday;
+       times[2] = wednesday;
+       times[3] = thursday;
+       times[4] = friday;
+       return times;
+    }
+
+    //true = conflict, false = no conflict
+    public boolean compare(Lecture lect){
+       String[][] thisStartStop = this.getStartStopTimes();
+       String[][] lectStartStop = lect.getStartStopTimes();
+       boolean result = false;
+
+       for(int i = 0; i < 5; i++){
+
+           if(thisStartStop[i] == null || lectStartStop[i] == null){
+               continue;
+           }
+
+           if((thisStartStop[i][0].compareTo(lectStartStop[i][0]) <= 0)
+                   && (thisStartStop[i][1].compareTo(lectStartStop[i][0]) >= 0)){
+               return true;
+           } else if((thisStartStop[i][0].compareTo(lectStartStop[i][1]) <= 0)
+                   && (thisStartStop[i][1].compareTo(lectStartStop[i][1]) >= 0)){
+               return true;
+           } else if((thisStartStop[i][0].compareTo(lectStartStop[i][0]) >= 0)
+                   && (thisStartStop[i][1].compareTo(lectStartStop[i][1]) <= 0)){
+               return true;
+           }
+       }
+       return result;
     }
 }
