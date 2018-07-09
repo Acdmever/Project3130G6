@@ -1,11 +1,16 @@
 package com.example.armando.project;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +28,12 @@ public class CourseListActivity extends AppCompatActivity {
 
     //Hard coded until login functionality is ironed out.
     private final String studentId = "5";
+    private String selectedItem, selectedItem2;
+
+    private FirebaseDatabase db;
+    private DatabaseReference ref;
+
+    private Spinner spinner2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +52,53 @@ public class CourseListActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        final FirebaseDatabase db=FirebaseDatabase.getInstance();
-        final DatabaseReference ref = db.getReference("Courses");
+        db=FirebaseDatabase.getInstance();
+        ref = db.getReference("Courses");
+        firebaseFunction();
+
+        //Second Spinner
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+
+
+        //Implementing Course Filter. Implementing onItemSelectedListener() interface.
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = parent.getItemAtPosition(position).toString();
+
+                //If the first spinner is set to Department, then populate the second spinner
+                //with the list of departments
+                if (selectedItem.equals("Department")){
+                    spinner2.setOnItemSelectedListener(new CourseFilter());
+                    ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
+                            R.array.department_array, android.R.layout.simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner2.setAdapter(adapter2);
+                } else {
+                    spinner2.setAdapter(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Filter button. Filtering will not happen until the button is clicked on.
+        final Button button = findViewById(R.id.filterButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (spinner2.getSelectedItem() != null)
+                    selectedItem2 = spinner2.getSelectedItem().toString();
+                firebaseFunction();
+            }
+        });
+
+    }
+
+    //Function that gets the lists of courses from firebase. The filtering queries happen in here.
+    public void firebaseFunction() {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -52,7 +108,21 @@ public class CourseListActivity extends AppCompatActivity {
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
-                    input.add(course);
+                    //Filtering
+                    if (selectedItem!=null && selectedItem.equals("Department")) {
+                        if(selectedItem2 != null && selectedItem2.equals("Spanish")){
+                            if (course.getDepartment().equals("Spanish")) {
+                                input.add(course);
+                            }
+                        }else if (selectedItem2 != null && selectedItem2.equals("Sociology")){
+                            if (course.getDepartment().equals("Sociology")){
+                                input.add(course);
+                            }
+                        }
+                    } else {
+                        input.add(course);
+                    }
+
                 }
                 listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
