@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 public class ScheduleTest {
 
     public Student student = new Student();
-    public Course c0=new Course("CSCI", "Johnny F", "Winter","Intro","1100", "2018");
-    public Course c1=new Course("CSCI", "Johnny D", "Winter","Intro","1101", "2018");
-    public Course c2=new Course("CSCI", "Johnny T", "Winter","Intro","2100", "2018");
+    public Course c0=new Course("CSCI", "Johnny F", "Winter","Intro",Long.valueOf(1100), "2018");
+    public Course c1=new Course("CSCI", "Johnny D", "Winter","Intro",Long.valueOf(1101), "2018");
+    public Course c2=new Course("CSCI", "Johnny T", "Winter","Intro",Long.valueOf(2100), "2018");
     public Schedule s=new Schedule();
 
     @Before
