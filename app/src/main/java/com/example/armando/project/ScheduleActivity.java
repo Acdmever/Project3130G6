@@ -8,59 +8,43 @@ import android.widget.TextView;
 
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+/**
+ *
+ * ScheduleActivity.java
+ * Fetches courses from Firebase and makes them into a Schedule
+ * Then displays the student's schedule
+ *@author Luis Armando Cordero
+ *
+**/
 
 public class ScheduleActivity extends AppCompatActivity {
-    //public Schedule schedule=new Schedule();
-    public Student student = new Student();
     public final String id="0";
-    /*
-    public Course c0=new Course("CSCI", "Johnny F", "Winter","Intro","1100", "2018");
-    public Course c1=new Course("CSCI", "Johnny D", "Winter","Intro","1101", "2018");
-    public Course c2=new Course("CSCI", "Johnny T", "Winter","Intro","2100", "2018");*/
     public Schedule s;
     public DatabaseReference ref;
     public FirebaseDatabase db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_activity);
         FirebaseApp.initializeApp(this);
-       // Database db = new Database();
         db=FirebaseDatabase.getInstance();
-        /*Lecture l0= new Lecture();
-        l0.setMonday("10:05-11:25");
-        l0.setWednesday("10:05-11:25");
-        Lecture t0=new Lecture();
-        t0.setTuesday("13:30-14:30");
-        Lecture l1=new Lecture();
-        l1.setMonday("11:35-12:00");
-        l1.setWednesday("11:35-12:00");
-        Lecture l2=new Lecture();
-        l2.setTuesday("10:05-11:25");
-        l2.setThursday("10:05-11:25");
-        s.courses=new ArrayList<Course>();
-        c0.lectures=l0;
-        c0.tutorials=t0;
-        c1.lectures=l1;
-        c2.lectures=l2;
-        s.courses.add(c0);
-        s.courses.add(c1);
-        s.courses.add(c2);*/
-        s=makeSchedule(id);
-
-        //Schedule schedule = db.getSchedule("ID");
-
+        ref=db.getReference();
+        s=new Schedule();
+        s.courses=new ArrayList<>();
+        makeSchedule();
     }
     public void getDay(View view){
         Spinner mySpinner=findViewById(R.id.daySpinner);
         String spinnerText=mySpinner.getSelectedItem().toString();
-        ArrayList<String> list= s.getSchedule(spinnerText.toString());
+        ArrayList<String> list= s.getSchedule(spinnerText);
         String[] rows=scheduleRow(list);
         TextView row0 = findViewById(R.id.row1);
         TextView row1 = findViewById(R.id.row2);
@@ -97,9 +81,64 @@ public class ScheduleActivity extends AppCompatActivity {
         }
         return rows;
     }
-    public Schedule makeSchedule(String id){
-        Schedule s=new Schedule();
-        //TODO Go through firebase to get courses and add to s
-        return s;
+    public void makeSchedule(){
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> courses=getCourseList(dataSnapshot);
+                for (DataSnapshot dsp: dataSnapshot.child("Courses").getChildren()){
+                    for (String c:courses){
+
+                        if (dsp.getKey().equals(c)){
+                            Course course=getDBCourse(dsp);
+                            s.courses.add(course);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+    public ArrayList<String> getCourseList(DataSnapshot dataSnapshot){
+        ArrayList<String> courses=new ArrayList<>();
+        for (DataSnapshot dsp: dataSnapshot.child("Registrations").getChildren()){
+            String reg[] =dsp.getKey().split("-");
+
+            if (reg[1].equals(id)){
+                courses.add(reg[0]);
+            }
+        }
+        return courses;
+    }
+    public Course getDBCourse(DataSnapshot dsp){
+        Course course=new Course();
+        course.setDepartment(dsp.child("department").getValue(String.class));
+        course.setNum(dsp.child("num").getValue(Long.class));
+        Lecture lec= setLectures(dsp.child("lectures"));
+        Lecture tut= setLectures(dsp.child("tutorials"));
+        course.setLectures(lec);
+        course.setTutorials(tut);
+        return course;
+    }
+    public Lecture setLectures(DataSnapshot dsp){
+        Lecture lec=new Lecture();
+        if(dsp.hasChild("monday"))
+            lec.setMonday(dsp.child("monday").getValue(String.class));
+        if(dsp.hasChild("tuesday"))
+            lec.setTuesday(dsp.child("tuesday").getValue(String.class));
+        if(dsp.hasChild("wednesday"))
+            lec.setWednesday(dsp.child("wednesday").getValue(String.class));
+        if(dsp.hasChild("thursday"))
+            lec.setThursday(dsp.child("thursday").getValue(String.class));
+        if(dsp.hasChild("friday"))
+            lec.setFriday(dsp.child("friday").getValue(String.class));
+        return lec;
+    }
+
+
 }
