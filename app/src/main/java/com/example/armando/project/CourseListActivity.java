@@ -65,8 +65,8 @@ public class CourseListActivity extends AppCompatActivity {
         //Second Spinner
         spinner2 = (Spinner) findViewById(R.id.spinner2);
 
-
         //Implementing Course Filter. Implementing onItemSelectedListener() interface.
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -103,9 +103,14 @@ public class CourseListActivity extends AppCompatActivity {
 
     }
 
-    //Function that gets the lists of courses from firebase. The filtering queries happen in here.
+    /**
+     * FirebaseFunction() is called when populating the list of courses. It does not return anything
+     * but will run the methods to populate the list. This is called by the filtering button to
+     * filter the courses.
+     */
     public void firebaseFunction() {
         ref.addValueEventListener(new ValueEventListener() {
+            @Override
             /**
              * Returns courses to be displayed.
              *
@@ -114,7 +119,6 @@ public class CourseListActivity extends AppCompatActivity {
              *
              * @param dataSnapshot
              */
-            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Course> input = new ArrayList();
                 Course course;
