@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *
- * Schedule.java
- * Schedule object
- *@author Luis Armando Cordero
- *
+ * Schedule object that sorts courses by day and time
+ * @author Luis Armando Cordero
  **/
 
 public class Schedule {
@@ -26,7 +23,6 @@ public class Schedule {
 
     /**
      * Get the student that this schedule belongs to
-     *
      * @return student
      */
     public Student getStudent() {
@@ -35,7 +31,6 @@ public class Schedule {
 
     /**
      * Set the student that this schedule belongs to
-     *
      * @param student
      */
     public void setStudent(Student student) {
@@ -43,8 +38,7 @@ public class Schedule {
     }
 
     /**
-     * Get the the semester
-     *
+     * Get the semester that is scheduled
      * @return semester
      */
     public String getSemester() {
@@ -53,7 +47,6 @@ public class Schedule {
 
     /**
      * Set the semester
-     *
      * @param  semester
      */
     public void setSemester(String semester) {
@@ -62,7 +55,6 @@ public class Schedule {
 
     /**
      * Get the year
-     *
      * @return year
      */
     public String getYear() {
@@ -71,7 +63,6 @@ public class Schedule {
 
     /**
      * Set the year
-     *
      * @param year
      */
     public void setYear(String year) {
@@ -80,7 +71,6 @@ public class Schedule {
 
     /**
      * Get the course list
-     *
      * @return courses
      */
     public ArrayList<Course> getCourses() {
@@ -89,16 +79,15 @@ public class Schedule {
 
     /**
      * Set the course list
-     *
      * @param courses
      */
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
 
+   
     /**
      * Add a course to the course list
-     *
      * @param course
      */
     public void addCourse(Course course){
@@ -106,11 +95,9 @@ public class Schedule {
     }
 
     /**
-     * Format the courses in the schedule
-     *
-     * @return schedule list
+     * Get the courses formatted in the schedule
+     * @return schedule_list
      */
-
     public ArrayList<String> getSchedule(String day){
         ArrayList<String> schedule=new ArrayList<String>();
         for (Course c:courses){
@@ -122,10 +109,7 @@ public class Schedule {
             if (c.getTutorials().hasLectureOn(day)){
                 s = c.getTutorials().getCourseOfDay(day) + "\n\t" + c.getDepartment() + " " + c.getNum().toString()+" Tutorial\n";
                 schedule.add(s);
-
             }
-
-
         }
         Collections.sort(schedule);
         return schedule;
