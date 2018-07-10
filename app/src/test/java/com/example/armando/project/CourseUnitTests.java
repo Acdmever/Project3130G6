@@ -76,16 +76,24 @@ public class CourseUnitTests {
         Course course1 = new Course();
         course1.setLectures(three);
         course1.setTutorials(two);
+        course1.setSemester("winter");
+        course1.setYear("2018-2019");
 
         Course course2 = new Course();
         course2.setLectures(four);
         course2.setTutorials(one);
+        course2.setSemester("fall");
+        course2.setYear("2018-2019");
 
         Course course3 = new Course();
         course3.setTutorials(two);
+        course3.setSemester("winter");
+        course3.setYear("2018-2019");
 
         Course course4 = new Course();
         course4.setTutorials(five);
+        course4.setSemester("winter");
+        course4.setYear("2018-2019");
 
         assertFalse(course1.checkForTimeConflict(course2));
         assertTrue(course4.checkForTimeConflict(course1));

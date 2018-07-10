@@ -25,10 +25,11 @@ import java.util.ArrayList;
  **/
 
 public class ScheduleActivity extends AppCompatActivity {
-    private final String id="0";
+
     private Schedule s;
     private DatabaseReference ref;
     private FirebaseDatabase db;
+    String receivedId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,15 @@ public class ScheduleActivity extends AppCompatActivity {
         db=FirebaseDatabase.getInstance();
         ref=db.getReference();
         s=new Schedule();
-        s.courses=new ArrayList<>();
+        receivedId=(String) getIntent().getSerializableExtra("String");
         makeSchedule();
     }
+    /**
+     * Fills up the tables in ScheduleActivity with the String[] of scheduleRow
+     * when pressing the GO button
+     *
+     * @param view
+     */
     public void getDay(View view){
         Spinner mySpinner=findViewById(R.id.daySpinner);
         String spinnerText=mySpinner.getSelectedItem().toString();
@@ -68,6 +75,13 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Formats the Course list into a String[], for afterwards using it to populate the rows in the Activity
+     *
+     * @param list
+     * @return String[] rows
+     */
     public String[] scheduleRow(ArrayList<String>list){
         String[] rows=new String[10];
         for (int i=0;i<10;i++){
@@ -80,6 +94,12 @@ public class ScheduleActivity extends AppCompatActivity {
         }
         return rows;
     }
+
+    /**
+     * Retrieves courses registered by the student from the database, then formats it and
+     * sorts them by time and day. Uses getCourseList(dataSnapshot) to compare course times.
+     *
+     */
     public void makeSchedule(){
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -91,7 +111,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
                         if (dsp.getKey().equals(c)){
                             Course course=getDBCourse(dsp);
-                            s.courses.add(course);
+                            s.addCourse(course);
                         }
                     }
                 }
@@ -103,40 +123,60 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Makes a list with only starting times of a list of courses.
+     *
+     *  @param  dataSnapshot
+     *  @return list
+     */
     public ArrayList<String> getCourseList(DataSnapshot dataSnapshot){
-        ArrayList<String> courses=new ArrayList<>();
+        ArrayList<String> list=new ArrayList<>();
         for (DataSnapshot dsp: dataSnapshot.child("Registrations").getChildren()){
             String reg[] =dsp.getKey().split("-");
 
-            if (reg[1].equals(id)){
-                courses.add(reg[0]);
+            if (reg[1].equals(receivedId)){
+                list.add(reg[0]);
             }
         }
-        return courses;
+        return list;
     }
-    public Course getDBCourse(DataSnapshot dsp){
+
+    /**
+     * Retrieves a course from the database, and returns a Course object.
+     *
+     *  @param  dataSnapshot
+     *  @return course
+     */
+    public Course getDBCourse(DataSnapshot dataSnapshot){
         Course course=new Course();
-        course.setDepartment(dsp.child("department").getValue(String.class));
-        course.setNum(dsp.child("num").getValue(Long.class));
-        Lecture lec= setLectures(dsp.child("lectures"));
-        Lecture tut= setLectures(dsp.child("tutorials"));
+        course.setDepartment(dataSnapshot.child("department").getValue(String.class));
+        course.setNum(dataSnapshot.child("num").getValue(Long.class));
+        Lecture lec= setLectures(dataSnapshot.child("lectures"));
+        Lecture tut= setLectures(dataSnapshot.child("tutorials"));
         course.setLectures(lec);
         course.setTutorials(tut);
         return course;
     }
-    public Lecture setLectures(DataSnapshot dsp){
-        Lecture lec=new Lecture();
-        if(dsp.hasChild("monday"))
-            lec.setMonday(dsp.child("monday").getValue(String.class));
-        if(dsp.hasChild("tuesday"))
-            lec.setTuesday(dsp.child("tuesday").getValue(String.class));
-        if(dsp.hasChild("wednesday"))
-            lec.setWednesday(dsp.child("wednesday").getValue(String.class));
-        if(dsp.hasChild("thursday"))
-            lec.setThursday(dsp.child("thursday").getValue(String.class));
-        if(dsp.hasChild("friday"))
-            lec.setFriday(dsp.child("friday").getValue(String.class));
-        return lec;
+
+    /**
+     * Populates a Lecture with times af class from the database.
+     *
+     *  @param  dataSnapshot
+     *  @return lecture
+     */
+    public Lecture setLectures(DataSnapshot dataSnapshot){
+        Lecture lecture=new Lecture();
+        if(dataSnapshot.hasChild("monday"))
+            lecture.setMonday(dataSnapshot.child("monday").getValue(String.class));
+        if(dataSnapshot.hasChild("tuesday"))
+            lecture.setTuesday(dataSnapshot.child("tuesday").getValue(String.class));
+        if(dataSnapshot.hasChild("wednesday"))
+            lecture.setWednesday(dataSnapshot.child("wednesday").getValue(String.class));
+        if(dataSnapshot.hasChild("thursday"))
+            lecture.setThursday(dataSnapshot.child("thursday").getValue(String.class));
+        if(dataSnapshot.hasChild("friday"))
+            lecture.setFriday(dataSnapshot.child("friday").getValue(String.class));
+        return lecture;
     }
 
 

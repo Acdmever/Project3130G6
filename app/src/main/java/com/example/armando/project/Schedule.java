@@ -9,13 +9,20 @@ import java.util.Collections;
  **/
 
 public class Schedule {
-    public Student student;
-    public String semester;
-    public String year;
-    public ArrayList<Course> courses=new ArrayList<Course>();
+    private Student student=new Student();
+    private String semester;
+    private String year;
+    private ArrayList<Course> courses=new ArrayList<>();
 
     /**
-     * Get the student that owns the schedule
+     * Empty constructor required by firebase
+     */
+    public Schedule(){
+
+    }
+
+    /**
+     * Get the student that this schedule belongs to
      * @return student
      */
     public Student getStudent() {
@@ -23,7 +30,7 @@ public class Schedule {
     }
 
     /**
-     * Set the student that owns the schedule
+     * Set the student that this schedule belongs to
      * @param student
      */
     public void setStudent(Student student) {
@@ -31,7 +38,7 @@ public class Schedule {
     }
 
     /**
-     * Get the semester that this schedule is for
+     * Get the semester that is scheduled
      * @return semester
      */
     public String getSemester() {
@@ -39,15 +46,15 @@ public class Schedule {
     }
 
     /**
-     * Set the semester that this schedule is for
-     * @param semester
+     * Set the semester
+     * @param  semester
      */
     public void setSemester(String semester) {
         this.semester = semester;
     }
 
     /**
-     * Get the year that this schedule is for
+     * Get the year
      * @return year
      */
     public String getYear() {
@@ -55,7 +62,7 @@ public class Schedule {
     }
 
     /**
-     * Set the year that this schedule is for
+     * Set the year
      * @param year
      */
     public void setYear(String year) {
@@ -63,7 +70,7 @@ public class Schedule {
     }
 
     /**
-     * Get the courses that the schedule displays classes for
+     * Get the course list
      * @return courses
      */
     public ArrayList<Course> getCourses() {
@@ -71,17 +78,25 @@ public class Schedule {
     }
 
     /**
-     * Set the courses that the schedule displays classes for
+     * Set the course list
      * @param courses
      */
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
 
+   
     /**
-     * Get the list of classes sorted by time for the given day
-     * @param day
-     * @return
+     * Add a course to the course list
+     * @param course
+     */
+    public void addCourse(Course course){
+        this.courses.add(course);
+    }
+
+    /**
+     * Get the courses formatted in the schedule
+     * @return schedule_list
      */
     public ArrayList<String> getSchedule(String day){
         ArrayList<String> schedule=new ArrayList<String>();

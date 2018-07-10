@@ -42,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CourseListActivity.class);
         startActivity(intent);
     }
-
+  
     /**
      * Brings the user to the Schedule activity
      * @param view
      */
     public void onClickViewSchedule(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra("String","5");
         startActivity(intent);
     }
 }
