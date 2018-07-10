@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Armando
     public void onClickViewSchedule(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra("String","5");
         startActivity(intent);
     }
 }

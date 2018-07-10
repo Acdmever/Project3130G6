@@ -13,16 +13,16 @@ import java.util.HashMap;
 public class Course {
     private String department;
     private String instructor;
-    private Lecture lectures;
+    private Lecture lectures=new Lecture();
     private String semester;
     private String name;
-    private Lecture tutorials;
+    private Lecture tutorials=new Lecture();
     private int limit;
     private String year;
     private String description;
     private Long num;
     private String key;
-    private ArrayList<String> students = new ArrayList();
+    private ArrayList<String> students = new ArrayList<>();
 
     /**
      * Get the database key for this course
