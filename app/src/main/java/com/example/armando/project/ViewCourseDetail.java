@@ -7,7 +7,10 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 /**
- * ViewCourseDetail displays the info associated with a course
+ *  ViewCourseDetail displays the info associated with a course
+ * @author Dhan
+ * @author Joel
+ * @author Nic
  */
 public class ViewCourseDetail extends AppCompatActivity {
 

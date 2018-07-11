@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.AdapterView;
 
+/**
+ * for filtering courses
+ * @author Jessica Irving
+ */
 public class CourseFilter implements AdapterView.OnItemSelectedListener {
 
     @Override
