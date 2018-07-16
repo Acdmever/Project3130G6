@@ -89,7 +89,15 @@ public class CourseListActivity extends AppCompatActivity {
                             R.array.courseLevel_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
-                } else {
+                } else if (selectedItem.equals("Semester")){
+                    spinner2.setOnItemSelectedListener(new CourseFilter());
+                    ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
+                            R.array.semester_array, android.R.layout.simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner2.setAdapter(adapter2);
+                }
+
+                else {
                     spinner2.setAdapter(null);
                 }
             }
@@ -169,8 +177,17 @@ public class CourseListActivity extends AppCompatActivity {
                                 warningTextView.setText(R.string.warning);
                             }
                         }
-                    }
-                    else {
+                    } else if (selectedItem!=null && selectedItem.equals("Semester")) {
+                        if(selectedItem2 != null && selectedItem2.equals("Fall")){
+                            if (course.getSemester().equals("fall")) {
+                                input.add(course);
+                            }
+                        }else if (selectedItem2 != null && selectedItem2.equals("Winter")){
+                            if (course.getSemester().equals("winter")){
+                                input.add(course);
+                            }
+                        }
+                    } else {
                         input.add(course);
                     }
 
