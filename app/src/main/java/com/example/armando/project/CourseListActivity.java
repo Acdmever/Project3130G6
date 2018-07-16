@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +32,7 @@ public class CourseListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter listAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private TextView warningTextView;
 
     //Hard coded until login functionality is ironed out.
     private final String studentId = "5";
@@ -49,6 +51,7 @@ public class CourseListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        warningTextView = findViewById(R.id.textViewWarning);
 
         //Adding drop down items to Spinner
         //Followed an Android App website
@@ -80,10 +83,10 @@ public class CourseListActivity extends AppCompatActivity {
                             R.array.department_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
-                } else if (selectedItem.equals("Course Number")){
+                } else if (selectedItem.equals("Course Level")){
                     spinner2.setOnItemSelectedListener(new CourseFilter());
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
-                            R.array.courseNumber_array, android.R.layout.simple_spinner_item);
+                            R.array.courseLevel_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
                 } else {
@@ -103,6 +106,7 @@ public class CourseListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (spinner2.getSelectedItem() != null)
                     selectedItem2 = spinner2.getSelectedItem().toString();
+                warningTextView.setText("");
                 firebaseFunction();
             }
         });
@@ -143,7 +147,7 @@ public class CourseListActivity extends AppCompatActivity {
                                 input.add(course);
                             }
                         }
-                    } else if (selectedItem!=null && selectedItem.equals("Course Number")) {
+                    } else if (selectedItem!=null && selectedItem.equals("Course Level")) {
                         if(selectedItem2 != null && selectedItem2.equals("1000s")){
                             if ((course.getNum() / 1000) == 1) {
                                 input.add(course);
@@ -160,6 +164,9 @@ public class CourseListActivity extends AppCompatActivity {
                         } else if (selectedItem2 != null && selectedItem2.equals("4000s")){
                             if ((course.getNum() / 1000) == 4){
                                 input.add(course);
+                            }
+                            if(input.isEmpty()){
+                                warningTextView.setText(R.string.warning);
                             }
                         }
                     }
