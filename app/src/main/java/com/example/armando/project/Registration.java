@@ -7,6 +7,8 @@ package com.example.armando.project;
 public class Registration {
     private Integer course;
     private Integer student;
+    private String grade; //grade received, IP if in progress, RG if registered and not yet started.
+
     /**
      * Empty constructor for student
      */
@@ -20,6 +22,7 @@ public class Registration {
     public Registration(Integer course, Integer student) {
         this.course = course;
         this.student = student;
+        this.grade = "IP";
     }
     /**
      * gets the course number
@@ -41,10 +44,22 @@ public class Registration {
     public Integer getStudent() {
         return student;
     }
+
     /**
      * set this student student number
      */
     public void setStudent(Integer student) { this.student = student; }
+
+    /**
+     * get the grade received
+     */
+    public String getGrade() { return grade; }
+
+    /**
+     * set the grade received
+     */
+    public void setGrade(String grade) { this.grade = grade; }
+
     /**
      * this method check if to registration objects are equal
      * @param reg is a registration
