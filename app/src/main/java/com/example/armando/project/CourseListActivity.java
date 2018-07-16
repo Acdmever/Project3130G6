@@ -80,6 +80,12 @@ public class CourseListActivity extends AppCompatActivity {
                             R.array.department_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
+                } else if (selectedItem.equals("Course Number")){
+                    spinner2.setOnItemSelectedListener(new CourseFilter());
+                    ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
+                            R.array.courseNumber_array, android.R.layout.simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner2.setAdapter(adapter2);
                 } else {
                     spinner2.setAdapter(null);
                 }
@@ -137,7 +143,27 @@ public class CourseListActivity extends AppCompatActivity {
                                 input.add(course);
                             }
                         }
-                    } else {
+                    } else if (selectedItem!=null && selectedItem.equals("Course Number")) {
+                        if(selectedItem2 != null && selectedItem2.equals("1000s")){
+                            if ((course.getNum() / 1000) == 1) {
+                                input.add(course);
+                            }
+                        }
+                        else if (selectedItem2 != null && selectedItem2.equals("2000s")){
+                            if ((course.getNum() / 1000) == 2){
+                                input.add(course);
+                            }
+                        } else if (selectedItem2 != null && selectedItem2.equals("3000s")){
+                            if ((course.getNum() / 1000) == 3){
+                                input.add(course);
+                            }
+                        } else if (selectedItem2 != null && selectedItem2.equals("4000s")){
+                            if ((course.getNum() / 1000) == 4){
+                                input.add(course);
+                            }
+                        }
+                    }
+                    else {
                         input.add(course);
                     }
 
