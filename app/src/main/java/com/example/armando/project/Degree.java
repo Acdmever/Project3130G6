@@ -20,12 +20,16 @@ public class Degree {
 
     }
     /**
+     * constructor that sets the name of the students
+     * @param name the name of a degree
+     */
+    public Degree(String name){
+        this.name=name;
+    }
+    /**
      * This gets the list of courses
      * @return the list of courses in this degree
      */
-    public Degree(String name,String key){
-        this.name=name;
-    }
     public ArrayList<String> getCourses() {
         return courses;
     }
@@ -34,8 +38,8 @@ public class Degree {
         this.courses = courses;
     }
     /**
-    * This sets a name of a degree
-    */
+     * sets the name of the degree
+     */
     public void setName(String name) {
         this.name = name;
     }
