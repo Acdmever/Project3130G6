@@ -19,12 +19,12 @@
     <string name="courseDetails">Details</string>
     <string name="courseTitle">Course # and Title</string>
     <string name="courseSemesterYear">Semester and Year</string>
+    <string name="warning">No courses that match your query.</string>
 
     <!-- Strings for Drop Down to filter courses -->
     <string-array name="sorting_array">
         <item>" "</item>
         <item>Semester</item>
-        <item>Course Number</item>
         <item>Course Level</item>
         <item>Department</item>
         <item>Required Courses</item>
@@ -37,7 +37,7 @@
     </string-array>
 
     <!-- Strings for Drop Down to filter Course Levels -->
-    <string-array name="courseNumber_array">
+    <string-array name="courseLevel_array">
         <item>1000s</item>
         <item>2000s</item>
         <item>3000s</item>
