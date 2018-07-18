@@ -52,7 +52,7 @@ public class FilterEspressoTest {
 
         //Selecting the filter
         onView(withId(R.id.spinner)).perform(click());
-        onData(anything()).atPosition(4).perform(click());
+        onData(anything()).atPosition(3).perform(click());
 
         onView(withId(R.id.spinner2)).perform(click());
         onData(anything()).atPosition(1).perform(click());
@@ -95,7 +95,7 @@ public class FilterEspressoTest {
 
         //Selecting the filter
         onView(withId(R.id.spinner)).perform(click());
-        onData(anything()).atPosition(4).perform(click());
+        onData(anything()).atPosition(3).perform(click());
 
         onView(withId(R.id.spinner2)).perform(click());
         onData(anything()).atPosition(0).perform(click());
@@ -118,6 +118,127 @@ public class FilterEspressoTest {
             tag = i + "det";
         }
 
+        Intents.release();
+    }
+
+    @Test
+    public void select1000CourseLevel() throws InterruptedException {
+        Intents.init();
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.coursesButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+
+        //Selecting the filter
+        onView(withId(R.id.spinner)).perform(click());
+        onData(anything()).atPosition(2).perform(click());
+
+        onView(withId(R.id.filterButton)).perform(click());
+
+        int i = 0;
+        String tag = i + "det";
+        try {
+            onView(withTagValue(is((Object) tag))).check(matches(isDisplayed()));
+            onView(withTagValue(is((Object) tag))).perform(click());
+            Espresso.onView(withId(R.id.Number)).check(matches(withText("1000")));
+            Espresso.pressBack();
+        } catch (NoMatchingViewException e) {
+            System.out.println("Course does not exist");
+        }
+        i++;
+        tag = i + "det";
+
+        Intents.release();
+    }
+    public void selectWinterTerm() throws InterruptedException {
+        Intents.init();
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.coursesButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+
+        //Selecting the filter
+        onView(withId(R.id.spinner)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+
+        onView(withId(R.id.spinner2)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+
+        onView(withId(R.id.filterButton)).perform(click());
+
+        //Checking all courses to see if they are under filter criteria
+        int i = 0;
+        String tag = i + "det";
+        while (i < 10) {
+            try {
+                onView(withTagValue(is((Object) tag))).check(matches(isDisplayed()));
+                onView(withTagValue(is((Object) tag))).perform(click());
+                Espresso.onView(withId(R.id.Semester)).check(matches(withText("winter")));
+                Espresso.pressBack();
+            } catch (NoMatchingViewException e) {
+                System.out.println("Course does not exist");
+            }
+            i++;
+            tag = i + "det";
+        }
+
+        Intents.release();
+    }
+
+    @Test
+    public void selecFallTerm() throws InterruptedException {
+        Intents.init();
+        Espresso.onView(withId(R.id.username))
+                .perform(typeText("user"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.password))
+                .perform(typeText("pass"), closeSoftKeyboard());
+        Espresso.onView(withId(R.id.signInButton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.coursesButton)).perform(click());
+        intended(hasComponent(CourseListActivity.class.getName()));
+
+        //wait for list to load
+        Thread.sleep(5000);
+
+        //Selecting the filter
+        onView(withId(R.id.spinner)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+
+        onView(withId(R.id.spinner2)).perform(click());
+        onData(anything()).atPosition(0).perform(click());
+
+        onView(withId(R.id.filterButton)).perform(click());
+
+        //Checking all courses to see if they are under filter criteria
+        int i = 0;
+        String tag = i + "det";
+
+        while (i < 10) {
+            try {
+                onView(withTagValue(is((Object) tag))).check(matches(isDisplayed()));
+                onView(withTagValue(is((Object) tag))).perform(click());
+                Espresso.onView(withId(R.id.Semester)).check(matches(withText("fall")));
+                Espresso.pressBack();
+            } catch (NoMatchingViewException e) {
+                System.out.println("Course does not exist");
+            }
+            i++;
+            tag = i + "det";
+        }
         Intents.release();
     }
 }
