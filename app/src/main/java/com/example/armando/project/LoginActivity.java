@@ -29,15 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     private String inputUser, inputPass, foundUser, foundPass;
     private int validUser = 0;
 
+    private DatabaseReference ref;
+    private FirebaseDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Needed to connect to database
-        FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final FirebaseDatabase db=FirebaseDatabase.getInstance();
-        final DatabaseReference ref = db.getReference("Students");
+        db=FirebaseDatabase.getInstance();
+        ref = db.getReference("Students");
 
         //Setting up the login fields
         inputUserView = findViewById(R.id.username);
@@ -57,17 +58,18 @@ public class LoginActivity extends AppCompatActivity {
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getChildrenCount() > 0) {
-                            Student student = new Student();
-                            foundUser = student.getUsername();
-                            foundPass = student.getPassword();
-                            if (inputPass.equals(foundPass))
+                        for(DataSnapshot datas: dataSnapshot.getChildren()){
+                            foundUser = datas.child("username").getValue().toString();
+                            foundPass = datas.child("password").getValue().toString();
+                            if (inputPass.equals(foundPass)) {
                                 validUser = 1;
+                                break;
+                            }
                             else
                                 validUser = 0;
-                        } else {
-                            validUser = 0;
                         }
+                        if (dataSnapshot == null)
+                            validUser = 0;
                     }
 
                     @Override
