@@ -46,44 +46,19 @@ public class LoginActivity extends AppCompatActivity {
         statusMessage = findViewById(R.id.statusMessage);
         logInAttempt = new logIn();
 
+        inputUser = "";
+        inputPass = "";
+
         //Set button
         final Button validateButton = findViewById(R.id.signInButton);
         validateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //Get Login Inputs
                 inputUser = inputUserView.getText().toString();
                 inputPass = inputPassView.getText().toString();
+                firebaseFunction();
 
-                //Find login info
-                Query query = ref.orderByChild("username").equalTo(inputUser);
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot datas: dataSnapshot.getChildren()){
-                            foundUser = datas.child("username").getValue().toString();
-                            foundPass = datas.child("password").getValue().toString();
-                            if (inputPass.equals(foundPass)) {
-                                validUser = 1;
-                                break;
-                            }
-                            else
-                                validUser = 0;
-                        }
-                        if (dataSnapshot == null)
-                            validUser = 0;
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                if (validUser == 1 || logInAttempt.validate(inputUser, inputPass) == 1)
-                    onClickGoToMainMenu();
-                else
-                    statusMessage.setText("Invalid username/password");
-
-                inputUserView.setText("");
+                //inputUserView.setText("");
                 inputPassView.setText("");
             }
         });
@@ -93,6 +68,40 @@ public class LoginActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
         finish();
+    }
+
+    public void firebaseFunction() {
+        //Find login info
+        Query query = ref.orderByChild("username").equalTo(inputUser);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null)
+                    validUser = 0;
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
+                    foundUser = datas.child("username").getValue().toString();
+                    foundPass = datas.child("password").getValue().toString();
+                    if (inputPass.equals(foundPass)) {
+                        validUser = 1;
+                        break;
+                    }
+                    else
+                        validUser = 0;
+                }
+                if (validUser == 1 || logInAttempt.validate(inputUser, inputPass) == 1)
+                    onClickGoToMainMenu();
+                else
+                    statusMessage.setText("Invalid username/password");
+            }
+
+            @Override
+            /**
+             * Does nothing, needed for database listener errors
+             * @param databaseError
+             */
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 }
 
