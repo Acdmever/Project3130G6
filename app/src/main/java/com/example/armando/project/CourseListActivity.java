@@ -1,6 +1,5 @@
 package com.example.armando.project;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +35,7 @@ public class CourseListActivity extends AppCompatActivity {
     //Hard coded until login functionality is ironed out.
     private final String studentId = "5";
     private String selectedItem, selectedItem2;
-    private Degree d;
+    private Degree degree;
 
     private FirebaseDatabase db;
     private DatabaseReference ref;
@@ -102,7 +100,7 @@ public class CourseListActivity extends AppCompatActivity {
         });
 
         //Gets student's degree for use
-        getDegree();
+        degreeFromRequirements();
 
         //Filter button. Filtering will not happen until the button is clicked on.
         final Button button = findViewById(R.id.filterButton);
@@ -118,16 +116,15 @@ public class CourseListActivity extends AppCompatActivity {
     }
 
     /**
-     * This function gets the students degree object
+     * This function gets the students degree object by reading students degree requirements
      */
-    public void getDegree() {
+    public void degreeFromRequirements() {
         db.getReference("Requirements").addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                d = dataSnapshot.child("Spanish").getValue(Degree.class);
+                //Filtering by hardcoded degree requirements, until student's degree is accessible
+                degree = dataSnapshot.child("Spanish").getValue(Degree.class);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -141,7 +138,7 @@ public class CourseListActivity extends AppCompatActivity {
      * @param courseId
      * @return
      */
-    public boolean courseIncluded(ArrayList<String> courses, String courseId) {
+    public boolean isCourseIncluded(ArrayList<String> courses, String courseId) {
         for (int i = 0; i < courses.size(); i++) {
             if (courses.get(i).equals(courseId)) {
                 return true;
@@ -167,10 +164,10 @@ public class CourseListActivity extends AppCompatActivity {
              * @param dataSnapshot
              */
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Course> input = new ArrayList();
+                List<Course> input = new ArrayList();
+                Course course;
                 //Reads in courses from firebase and saves them in a list
-                for(DataSnapshot snap : dataSnapshot.getChildren()) {
-                    Course course;
+                for(DataSnapshot snap : dataSnapshot.getChildren()){
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
                     //Filtering
@@ -208,15 +205,20 @@ public class CourseListActivity extends AppCompatActivity {
                         }
                     }
                     else if(selectedItem!=null && selectedItem.equals("Required Courses")) {
-                        if (d != null && courseIncluded(d.getCourses(), course.getKey())) {
+                        if (degree != null && isCourseIncluded(degree.getCourses(), course.getKey())) {
                             input.add(course);
                         }
                     }
                     else {
                         input.add(course);
                     }
-
                 }
+
+                //If no courses are displayed, then show error
+                if(input.isEmpty()){
+                    warningTextView.setText(R.string.warning);
+                }
+
                 listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
