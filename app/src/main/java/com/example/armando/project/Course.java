@@ -1,5 +1,7 @@
 package com.example.armando.project;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,20 +11,23 @@ import java.util.HashMap;
  * @author Matt
  * @author Dahn
  * @author Nic
+ * @author Armando
  */
 public class Course {
     private String department;
     private String instructor;
-    private Lecture lectures=new Lecture();
+    private Lecture lectures;
     private String semester;
     private String name;
-    private Lecture tutorials=new Lecture();
+    private Lecture tutorials;
     private int limit;
     private String year;
     private String description;
     private Long num;
     private String key;
     private ArrayList<String> students = new ArrayList<>();
+    private ArrayList<String> prereqs=new ArrayList<>();
+    private String prereqList;
 
     /**
      * Get the database key for this course
@@ -31,6 +36,23 @@ public class Course {
      */
     public String getKey() {
         return key;
+    }
+
+    public String getPrereqList() {
+        return prereqList;
+    }
+
+    public void setPrereqList(String prereqList){
+        this.prereqList=prereqList;
+
+    }
+
+    public ArrayList<String> getPrereqs(){
+        return this.prereqs;
+    }
+
+    public void setPrereqs(ArrayList<String> prereqs){
+        this.prereqs=prereqs;
     }
 
     /**
@@ -44,7 +66,10 @@ public class Course {
     /**
      * Empty constructor required by firebase
      */
-    public Course() { }
+    public Course() {
+        this.setLectures(new Lecture());
+        this.setTutorials(new Lecture());
+    }
 
     /**
      * Create a course defining all fields
@@ -257,7 +282,7 @@ public class Course {
      * @return headerString
      */
     public String makeHeaderString(){
-       return getDepartment()+" "+getNum()+": "+getName();
+        return getDepartment()+" "+getNum()+": "+getName();
     }
 
     /**
@@ -283,6 +308,7 @@ public class Course {
         courseDetails.put("description", this.getDescription());
         courseDetails.put("enrolment", this.getStudents().size()+"");
         courseDetails.put("limit", this.getLimit()+"");
+        courseDetails.put("prerequisites",this.getPrereqList());
 
         return courseDetails;
     }
@@ -324,10 +350,6 @@ public class Course {
         Lecture newLectures = newCourse.getLectures();
         Lecture newTutorials = newCourse.getTutorials();
 
-        if(!this.year.equals(newCourse.getYear()) || !this.semester.equals(newCourse.getSemester())){
-            return result;
-        }
-
         if(newLectures != null){
             if((this.lectures != null) && this.lectures.compare(newLectures)){
                 return true;
@@ -348,5 +370,35 @@ public class Course {
             }
         }
         return result;
+    }
+
+    /**
+     * Takes the list of prerequisite numbers, and looks for their information in Firebase
+     *
+     * This method takes the DataSnapshot of courses in Firebase, and creates a string with
+     * the course number and department of each prerequisite course, and fill it in the prereqList
+     * value of the course object
+     *
+     * @param dataSnapshot
+     *
+     */
+    public void makePrereqs(DataSnapshot dataSnapshot){
+        String s="";
+        for(DataSnapshot childData:dataSnapshot.getChildren()){
+            for (String num: this.getPrereqs()){
+                if (num.equals(childData.getKey().toString())){
+                    s+=childData.child("department").getValue().toString()+" "+childData.child("num").getValue().toString()+"\n";
+                }
+            }
+        }
+
+        if (s.isEmpty()) {
+            s = "There are no prerequisites for this course";
+        }
+        else{
+            //Remove the last end of line
+            s=s.substring(0,s.length()-1);
+        }
+        this.setPrereqList(s);
     }
 }
