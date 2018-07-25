@@ -23,6 +23,7 @@ public class Course {
     private Long num;
     private String key;
     private ArrayList<String> students = new ArrayList<>();
+    private ArrayList<String> prereqs = new ArrayList<>();
 
     /**
      * Get the database key for this course
@@ -266,6 +267,23 @@ public class Course {
      */
     public String makeFooterString(){
         return getSemester()+" "+getYear();
+    }
+
+
+    /**
+     * Get the list of prereqs for the course
+     * @return prereqs
+     */
+    public ArrayList<String> getPrereqs() {
+        return prereqs;
+    }
+
+    /**
+     * Set the list of prereqs for the course
+     * @param prereqs
+     */
+    public void setPrereqs(ArrayList<String> prereqs) {
+        this.prereqs = prereqs;
     }
 
     /**

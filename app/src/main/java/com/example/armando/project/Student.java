@@ -9,6 +9,8 @@ public class Student {
     private String lastName;
     private String username;
     private String password;
+    private String degree;
+
     /**
      * Empty constructor for student
      */
@@ -21,11 +23,12 @@ public class Student {
      * @param username is the user name of a student
      * @param password is the password of a student
      */
-    public Student(String firstName, String lastName, String username, String password) {
+    public Student(String firstName, String lastName, String username, String password,String degree) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+        this.degree=degree;
     }
     /**
      * this returns the first name of a student
@@ -82,5 +85,13 @@ public class Student {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 }
