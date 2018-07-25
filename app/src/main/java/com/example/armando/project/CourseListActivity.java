@@ -37,6 +37,7 @@ public class CourseListActivity extends AppCompatActivity {
     //Hard coded until login functionality is ironed out.
     private final String studentId = "5";
     private String selectedItem, selectedItem2;
+    private Degree d;
 
     private FirebaseDatabase db;
     private DatabaseReference ref;
@@ -100,6 +101,9 @@ public class CourseListActivity extends AppCompatActivity {
             }
         });
 
+        //Gets student's degree for use
+        getDegree();
+
         //Filter button. Filtering will not happen until the button is clicked on.
         final Button button = findViewById(R.id.filterButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +115,39 @@ public class CourseListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * This function gets the students degree object
+     */
+    public void getDegree() {
+        db.getReference("Requirements").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                d = dataSnapshot.child("Spanish").getValue(Degree.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * This loops through the list of required courses and checks if a course is in the list
+     * @param courses
+     * @param courseId
+     * @return
+     */
+    public boolean courseIncluded(ArrayList<String> courses, String courseId) {
+        for (int i = 0; i < courses.size(); i++) {
+            if (courses.get(i).equals(courseId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -130,10 +167,10 @@ public class CourseListActivity extends AppCompatActivity {
              * @param dataSnapshot
              */
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Course> input = new ArrayList();
-                Course course;
+                ArrayList<Course> input = new ArrayList();
                 //Reads in courses from firebase and saves them in a list
-                for(DataSnapshot snap : dataSnapshot.getChildren()){
+                for(DataSnapshot snap : dataSnapshot.getChildren()) {
+                    Course course;
                     course = snap.getValue(Course.class);
                     course.setKey(snap.getKey());
                     //Filtering
@@ -170,22 +207,10 @@ public class CourseListActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    else if(selectedItem!=null && selectedItem.equals("Required Courses")){
-                        db.getReference("Requirements").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Degree d = dataSnapshot.child("Spanish").getValue(Degree.class);
-
-
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
+                    else if(selectedItem!=null && selectedItem.equals("Required Courses")) {
+                        if (d != null && courseIncluded(d.getCourses(), course.getKey())) {
+                            input.add(course);
+                        }
                     }
                     else {
                         input.add(course);
