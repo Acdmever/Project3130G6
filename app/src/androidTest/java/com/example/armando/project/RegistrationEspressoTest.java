@@ -122,6 +122,8 @@ public class RegistrationEspressoTest {
         Thread.sleep(5000);
 
         String tag = "1reg";
+        String tag2="3reg";
+        onView(withTagValue(is((Object) tag2))).perform(click());
         onView(withTagValue(is((Object) tag))).perform(click());
         Thread.sleep(500);
 
@@ -139,6 +141,7 @@ public class RegistrationEspressoTest {
 
         //Drop course to reset for next test
         onView(withTagValue(is((Object) tag))).perform(click());
+        onView(withTagValue(is((Object) tag2))).perform(click());
 
         Intents.release();
     }
@@ -167,8 +170,26 @@ public class RegistrationEspressoTest {
         Espresso.onView(withId(R.id.Name)).check(matches(withText("Intro to Spanish")));
         Espresso.onView(withId(R.id.Number)).check(matches(withText("1000")));
         Espresso.onView(withId(R.id.Semester)).check(matches(withText("fall")));
-        Espresso.onView(withId(R.id.Year)).check(matches(withText("2012-2013")));
+        Espresso.onView(withId(R.id.Year)).check(matches(withText("2018-2019")));
         Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("0/30")));
+        Espresso.onView(withId(R.id.Prereqs)).check(matches(withText("There are no prerequisites for this course")));
+
+        Thread.sleep(1000);
+        Espresso.pressBack();
+
+        String tag2 = "1det";
+        onView(withTagValue(is((Object) tag2))).perform(click());
+        Espresso.onView(withId(R.id.Description)).check(matches(withText("Advance your spanish " +
+                "skills in intermediate spanish with Christine Mayor")));
+        Espresso.onView(withId(R.id.Department)).check(matches(withText("Spanish")));
+        Espresso.onView(withId(R.id.Instructor)).check(matches(withText("Christine Mayor")));
+        Espresso.onView(withId(R.id.Name)).check(matches(withText("Intermediate Spanish")));
+        Espresso.onView(withId(R.id.Number)).check(matches(withText("2000")));
+        Espresso.onView(withId(R.id.Semester)).check(matches(withText("winter")));
+        Espresso.onView(withId(R.id.Year)).check(matches(withText("2018-2019")));
+        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("2/30")));
+        Espresso.onView(withId(R.id.Prereqs)).check(matches(withText("Spanish 1000")));
+
         Intents.release();
     }
 }

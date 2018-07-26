@@ -219,6 +219,11 @@ public class CourseListActivity extends AppCompatActivity {
                     warningTextView.setText(R.string.warning);
                 }
 
+                //Creates the prerequisite List
+                for (Course c:input){
+                    c.makePrereqs(dataSnapshot);
+                }
+
                 listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
