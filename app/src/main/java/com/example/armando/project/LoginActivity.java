@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private logIn logInAttempt;
     private String inputUser, inputPass, foundUser, foundPass;
     private int validUser = 0;
+    private Student loginStudent;
 
     private DatabaseReference ref;
     private FirebaseDatabase db;
@@ -64,8 +65,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void onClickGoToMainMenu() {
+    private void onClickGoToMainMenu(Student student) {
         Intent myIntent = new Intent(this, MainActivity.class);
+        myIntent.putExtra("Student", student);
         startActivity(myIntent);
         finish();
     }
@@ -84,13 +86,17 @@ public class LoginActivity extends AppCompatActivity {
                     foundPass = datas.child("password").getValue().toString();
                     if (inputPass.equals(foundPass)) {
                         validUser = 1;
+                        loginStudent = new Student(datas.child("firstName").getValue().toString(),
+                                                datas.child("firstName").getValue().toString(),
+                                                datas.child("username").getValue().toString(),
+                                                datas.child("password").getValue().toString());
                         break;
                     }
                     else
                         validUser = 0;
                 }
                 if (validUser == 1 || logInAttempt.validate(inputUser, inputPass) == 1)
-                    onClickGoToMainMenu();
+                    onClickGoToMainMenu(loginStudent);
                 else
                     statusMessage.setText("Invalid username/password");
             }

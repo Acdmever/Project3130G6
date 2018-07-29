@@ -16,12 +16,15 @@ import com.google.firebase.database.FirebaseDatabase;
  * @author Matt
  */
 public class MainActivity extends AppCompatActivity {
+    Student receivedStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        receivedStudent = (Student)getIntent().getSerializableExtra("Student");
+        System.out.print(receivedStudent);
     }
 
     /**

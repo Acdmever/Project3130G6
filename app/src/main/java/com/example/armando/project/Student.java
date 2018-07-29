@@ -1,9 +1,12 @@
 package com.example.armando.project;
+
+import java.io.Serializable;
+
 /**
  * keeping track of a student's Fisrt name, last name, username and password.
  * @author Luis Armando Cordero
  */
-public class Student {
+public class Student implements Serializable{
 
     private String firstName;
     private String lastName;
