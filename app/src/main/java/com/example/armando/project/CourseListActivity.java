@@ -75,7 +75,7 @@ public class CourseListActivity extends AppCompatActivity {
                 selectedItem = parent.getItemAtPosition(position).toString();
 
                 //If the first spinner is set to Department, then populate the second spinner
-                //with the list of departments
+                //with the list of departments, then for course level, etc.
                 if (selectedItem.equals("Department")){
                     spinner2.setOnItemSelectedListener(new CourseFilter());
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
@@ -86,6 +86,12 @@ public class CourseListActivity extends AppCompatActivity {
                     spinner2.setOnItemSelectedListener(new CourseFilter());
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
                             R.array.courseLevel_array, android.R.layout.simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner2.setAdapter(adapter2);
+                } else if (selectedItem.equals("Semester")){
+                    spinner2.setOnItemSelectedListener(new CourseFilter());
+                    ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
+                            R.array.semester_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
                 } else {
@@ -203,12 +209,22 @@ public class CourseListActivity extends AppCompatActivity {
                                 warningTextView.setText(R.string.warning);
                             }
                         }
-                    }
-                    else if(selectedItem!=null && selectedItem.equals("Required Courses")) {
+                    } else if (selectedItem!=null && selectedItem.equals("Semester")) {
+                        if (selectedItem2 != null && selectedItem2.equals("Fall")) {
+                            if (course.getSemester().equals("fall")) {
+                                input.add(course);
+                            }
+                        } else if (selectedItem2 != null && selectedItem2.equals("Winter")) {
+                            if (course.getSemester().equals("winter")) {
+                                input.add(course);
+                            }
+                        }
+                    } else if(selectedItem!=null && selectedItem.equals("Required Courses")) {
                         if (degree != null && isCourseIncluded(degree.getCourses(), course.getKey())) {
                             input.add(course);
                         }
                     }
+
                     else {
                         input.add(course);
                     }

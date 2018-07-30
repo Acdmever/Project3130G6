@@ -44,4 +44,10 @@
         <item>4000s</item>
     </string-array>
 
+    <!-- Strings for Drop Down to filter Semesters -->
+    <string-array name="semester_array">
+        <item>Fall</item>
+        <item>Winter</item>
+    </string-array>
+
 </resources>
