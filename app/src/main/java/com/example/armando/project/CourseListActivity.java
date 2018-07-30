@@ -33,7 +33,7 @@ public class CourseListActivity extends AppCompatActivity {
     private TextView warningTextView;
 
     //Hard coded until login functionality is ironed out.
-    private final String studentId = "5";
+
     private String selectedItem, selectedItem2;
     private Degree degree;
 
@@ -129,7 +129,8 @@ public class CourseListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Filtering by hardcoded degree requirements, until student's degree is accessible
-                degree = dataSnapshot.child("Spanish").getValue(Degree.class);
+                //System.out.println(getIntent().getStringExtra("degree")+"\n");
+                degree = dataSnapshot.child(getIntent().getStringExtra("degree")).getValue(Degree.class);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -240,7 +241,7 @@ public class CourseListActivity extends AppCompatActivity {
                     c.makePrereqs(dataSnapshot);
                 }
 
-                listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
+                listAdapter = new CourseListAdapter(input, getIntent().getStringExtra("studentId"), db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
 

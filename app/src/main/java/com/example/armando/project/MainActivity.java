@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickShowCourses(View view) {
         Intent intent = new Intent(this, CourseListActivity.class);
+        intent.putExtra("studentId", getIntent().getStringExtra("studentId"));
+
+        intent.putExtra("degree", getIntent().getStringExtra("degree"));
         startActivity(intent);
     }
   
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickViewSchedule(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
-        intent.putExtra("String","5");
+        intent.putExtra("String", getIntent().getStringExtra("studentId"));
+
         startActivity(intent);
     }
 }
