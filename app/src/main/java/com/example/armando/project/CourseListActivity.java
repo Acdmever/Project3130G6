@@ -76,7 +76,7 @@ public class CourseListActivity extends AppCompatActivity {
                 selectedItem = parent.getItemAtPosition(position).toString();
 
                 //If the first spinner is set to Department, then populate the second spinner
-                //with the list of departments
+                //with the list of departments, then for course level, etc.
                 if (selectedItem.equals("Department")){
                     spinner2.setOnItemSelectedListener(new CourseFilter());
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
