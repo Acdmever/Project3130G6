@@ -22,6 +22,7 @@ public class ViewCourseDetail extends AppCompatActivity {
     public static TextView txtYear;
     public static TextView txtDescription;
     public static TextView txtEnrolment;
+    public static TextView txtPrereqs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class ViewCourseDetail extends AppCompatActivity {
         txtYear = findViewById(R.id.Year);
         txtDescription = findViewById(R.id.Description);
         txtEnrolment = findViewById(R.id.Enrolment);
+        txtPrereqs = findViewById(R.id.Prereqs);
 
         HashMap<String, String> courseDetails = (HashMap<String, String>)getIntent().getSerializableExtra("course");
         txtDepartment.setText(courseDetails.get("department"));
@@ -46,5 +48,6 @@ public class ViewCourseDetail extends AppCompatActivity {
         txtYear.setText(courseDetails.get("year"));
         txtDescription.setText(courseDetails.get("description"));
         txtEnrolment.setText((courseDetails.get("enrolment")+"/"+courseDetails.get("limit")));
+        txtPrereqs.setText(courseDetails.get("prerequisites"));
     }
 }

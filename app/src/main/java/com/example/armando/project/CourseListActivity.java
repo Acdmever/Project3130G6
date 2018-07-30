@@ -1,6 +1,5 @@
 package com.example.armando.project;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +35,7 @@ public class CourseListActivity extends AppCompatActivity {
     //Hard coded until login functionality is ironed out.
     private final String studentId = "5";
     private String selectedItem, selectedItem2;
+    private Degree degree;
 
     private FirebaseDatabase db;
     private DatabaseReference ref;
@@ -95,9 +94,7 @@ public class CourseListActivity extends AppCompatActivity {
                             R.array.semester_array, android.R.layout.simple_spinner_item);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner2.setAdapter(adapter2);
-                }
-
-                else {
+                } else {
                     spinner2.setAdapter(null);
                 }
             }
@@ -107,6 +104,9 @@ public class CourseListActivity extends AppCompatActivity {
 
             }
         });
+
+        //Gets student's degree for use
+        degreeFromRequirements();
 
         //Filter button. Filtering will not happen until the button is clicked on.
         final Button button = findViewById(R.id.filterButton);
@@ -119,6 +119,38 @@ public class CourseListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * This function gets the students degree object by reading students degree requirements
+     */
+    public void degreeFromRequirements() {
+        db.getReference("Requirements").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Filtering by hardcoded degree requirements, until student's degree is accessible
+                degree = dataSnapshot.child("Spanish").getValue(Degree.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * This loops through the list of required courses and checks if a course is in the list
+     * @param courses
+     * @param courseId
+     * @return
+     */
+    public boolean isCourseIncluded(ArrayList<String> courses, String courseId) {
+        for (int i = 0; i < courses.size(); i++) {
+            if (courses.get(i).equals(courseId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -178,20 +210,36 @@ public class CourseListActivity extends AppCompatActivity {
                             }
                         }
                     } else if (selectedItem!=null && selectedItem.equals("Semester")) {
-                        if(selectedItem2 != null && selectedItem2.equals("Fall")){
+                        if (selectedItem2 != null && selectedItem2.equals("Fall")) {
                             if (course.getSemester().equals("fall")) {
                                 input.add(course);
                             }
-                        }else if (selectedItem2 != null && selectedItem2.equals("Winter")){
-                            if (course.getSemester().equals("winter")){
+                        } else if (selectedItem2 != null && selectedItem2.equals("Winter")) {
+                            if (course.getSemester().equals("winter")) {
                                 input.add(course);
                             }
                         }
-                    } else {
-                        input.add(course);
+                    } else if(selectedItem!=null && selectedItem.equals("Required Courses")) {
+                        if (degree != null && isCourseIncluded(degree.getCourses(), course.getKey())) {
+                            input.add(course);
+                        }
                     }
 
+                    else {
+                        input.add(course);
+                    }
                 }
+
+                //If no courses are displayed, then show error
+                if(input.isEmpty()){
+                    warningTextView.setText(R.string.warning);
+                }
+
+                //Creates the prerequisite List
+                for (Course c:input){
+                    c.makePrereqs(dataSnapshot);
+                }
+
                 listAdapter = new CourseListAdapter(input, studentId, db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
