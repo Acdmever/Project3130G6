@@ -171,7 +171,7 @@ public class RegistrationEspressoTest {
         Espresso.onView(withId(R.id.Number)).check(matches(withText("1000")));
         Espresso.onView(withId(R.id.Semester)).check(matches(withText("fall")));
         Espresso.onView(withId(R.id.Year)).check(matches(withText("2018-2019")));
-        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("0/30")));
+        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("2/30")));
         Espresso.onView(withId(R.id.Prereqs)).check(matches(withText("There are no prerequisites for this course")));
 
         Thread.sleep(1000);
@@ -187,7 +187,7 @@ public class RegistrationEspressoTest {
         Espresso.onView(withId(R.id.Number)).check(matches(withText("2000")));
         Espresso.onView(withId(R.id.Semester)).check(matches(withText("winter")));
         Espresso.onView(withId(R.id.Year)).check(matches(withText("2018-2019")));
-        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("2/30")));
+        Espresso.onView(withId(R.id.Enrolment)).check(matches(withText("3/30")));
         Espresso.onView(withId(R.id.Prereqs)).check(matches(withText("Spanish 1000")));
 
         Intents.release();

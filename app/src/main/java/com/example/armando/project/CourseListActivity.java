@@ -179,53 +179,24 @@ public class CourseListActivity extends AppCompatActivity {
                     course.setKey(snap.getKey());
                     //Filtering
                     if (selectedItem!=null && selectedItem.equals("Department")) {
-                        if(selectedItem2 != null && selectedItem2.equals("Spanish")){
-                            if (course.getDepartment().equals("Spanish")) {
-                                input.add(course);
-                            }
-                        }else if (selectedItem2 != null && selectedItem2.equals("Sociology")){
-                            if (course.getDepartment().equals("Sociology")){
-                                input.add(course);
-                            }
+                        if(selectedItem2 != null && selectedItem2.equals(course.getDepartment())){
+                            input.add(course);
                         }
                     } else if (selectedItem!=null && selectedItem.equals("Course Level")) {
-                        if(selectedItem2 != null && selectedItem2.equals("1000s")){
-                            if ((course.getNum() / 1000) == 1) {
-                                input.add(course);
-                            }
-                        }
-                        else if (selectedItem2 != null && selectedItem2.equals("2000s")){
-                            if ((course.getNum() / 1000) == 2){
-                                input.add(course);
-                            }
-                        } else if (selectedItem2 != null && selectedItem2.equals("3000s")){
-                            if ((course.getNum() / 1000) == 3){
-                                input.add(course);
-                            }
-                        } else if (selectedItem2 != null && selectedItem2.equals("4000s")){
-                            if ((course.getNum() / 1000) == 4){
-                                input.add(course);
-                            }
-                            if(input.isEmpty()){
-                                warningTextView.setText(R.string.warning);
-                            }
+                        if (selectedItem2 != null &&
+                                (course.getNum() / 1000) == spinner2.getSelectedItemPosition()+1){
+                            input.add(course);
                         }
                     } else if (selectedItem!=null && selectedItem.equals("Semester")) {
-                        if (selectedItem2 != null && selectedItem2.equals("Fall")) {
-                            if (course.getSemester().equals("fall")) {
-                                input.add(course);
-                            }
-                        } else if (selectedItem2 != null && selectedItem2.equals("Winter")) {
-                            if (course.getSemester().equals("winter")) {
-                                input.add(course);
-                            }
+                        if (selectedItem2 != null &&
+                                selectedItem2.toLowerCase().equals(course.getSemester().toLowerCase())){
+                            input.add(course);
                         }
                     } else if(selectedItem!=null && selectedItem.equals("Required Courses")) {
-                        if (degree != null && isCourseIncluded(degree.getCourses(), course.getKey())) {
+                        if (degree != null && isCourseIncluded(degree.getCourses(), course.getKey())){
                             input.add(course);
                         }
                     }
-
                     else {
                         input.add(course);
                     }
@@ -241,7 +212,8 @@ public class CourseListActivity extends AppCompatActivity {
                     c.makePrereqs(dataSnapshot);
                 }
 
-                listAdapter = new CourseListAdapter(input, getIntent().getStringExtra("studentId"), db, findViewById(android.R.id.content));
+                listAdapter = new CourseListAdapter(input, getIntent().getStringExtra("studentId"),
+                        db, findViewById(android.R.id.content));
                 recyclerView.setAdapter(listAdapter);
             }
 

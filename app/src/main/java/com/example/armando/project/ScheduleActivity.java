@@ -34,7 +34,7 @@ public class ScheduleActivity extends AppCompatActivity {
         db=FirebaseDatabase.getInstance();
         ref=db.getReference();
         s=new Schedule();
-        receivedId=(String) getIntent().getSerializableExtra("String");
+        receivedId=getIntent().getStringExtra("String");
         makeSchedule();
     }
     /**

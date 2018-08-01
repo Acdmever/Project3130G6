@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClickViewSchedule(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra("String", getIntent().getStringExtra("studentId"));
-
         startActivity(intent);
     }
 }
